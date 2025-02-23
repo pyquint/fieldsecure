@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    FieldSecure
+{% endblock title %}
+
+{% block content %}
+    <div class="px-4 py-5 my-5 text-center">
+        <img src="{{ url_for('static', filename='img/encrypted.png') }}" alt="logo" class="d-block mx-auto mb-4" />
+        <h1 class="display-5 fw-bold text-body-emphasis">FieldSecure</h1>
+        <a href="{{ url_for('encrypt') }}" class="btn btn-primary">Start</a>
+    </div>
+{% endblock content %}
