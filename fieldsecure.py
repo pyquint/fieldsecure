@@ -17,14 +17,14 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/encrypt", methods=["GET", "POST"])
-def encrypt():
-    key = request.args.get("key", "")
-    method = request.args.get("method", "rsa")
+@app.route("/rsa", methods=["GET", "POST"])
+def rsa():
+    return render_template("ciphers/rsa.html")
 
-    input_text, output_text = "", ""
 
-    return render_template("encrypt.html")
+@app.route("/hill-cipher", methods=["GET", "POST"])
+def hillcipher():
+    return render_template("ciphers/hill-cipher.html")
 
 
 if __name__ == "__main__":

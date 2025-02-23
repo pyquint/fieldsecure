@@ -5,9 +5,24 @@
 {% endblock title %}
 
 {% block content %}
+    <style>
+        #logo {
+            width: 200px;
+        }
+    </style>
+
     <div class="px-4 py-5 my-5 text-center">
-        <img src="{{ url_for('static', filename='img/encrypted.png') }}" alt="logo" class="d-block mx-auto mb-4" />
+        <img src="{{ url_for('static', filename='img/encrypted.png') }}"
+             alt="logo"
+             class="d-block mx-auto mb-4"
+             id="logo" />
         <h1 class="display-5 fw-bold text-body-emphasis">FieldSecure</h1>
-        <a href="{{ url_for('encrypt') }}" class="btn btn-primary">Start</a>
+
+        <div class="mt-5">
+            <a class="btn btn-warning text-white" href="{{ url_for('rsa') }}">RSA</a>
+            <a class="btn btn-warning text-white" href="{{ url_for('hillcipher') }}">Hill Cipher</a>
+        </div>
+
+        {# <a href="{{ url_for('encrypt') }}" class="btn btn-primary">Start</a> #}
     </div>
 {% endblock content %}
