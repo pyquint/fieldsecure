@@ -1,5 +1,5 @@
 import rsa
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from sassutils.wsgi import SassMiddleware
 
 app = Flask(__name__)
@@ -17,14 +17,34 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/rsa", methods=["GET", "POST"])
+@app.route("/rsa", methods=["GET"])
 def rsa():
-    return render_template("ciphers/rsa.html")
+    # holy shit this works
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        text = request.args.get("text", "")
+        response = {
+            "output": f"(RSA:{text})",
+            "steps": render_template("ciphers/learn/rsa.html", text=text),
+        }
+        print(f"\n{response}\n")
+        return jsonify(response)
+    else:
+        return render_template("ciphers/rsa.html")
 
 
 @app.route("/hill-cipher", methods=["GET", "POST"])
 def hillcipher():
-    return render_template("ciphers/hill-cipher.html")
+    # holy shit this works
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        text = request.args.get("text", "")
+        response = {
+            "output": f"(HILL-CIPHER:{text})",
+            "steps": render_template("ciphers/learn/hill-cipher.html", text=text),
+        }
+        print(f"\n{response}\n")
+        return jsonify(response)
+    else:
+        return render_template("ciphers/hill-cipher.html")
 
 
 if __name__ == "__main__":

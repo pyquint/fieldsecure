@@ -392,3 +392,13 @@ pyrightconfig.json
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,flask,intellij
+
+
+# auto-generated from compiling sass files
+static/css
+
+# node
+/node_modules
+package-lock.json
+package.json
+eslint.config.mjs

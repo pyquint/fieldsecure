@@ -7,5 +7,21 @@
 {% block content %}
     <div class="container mt-4">
         <h1>Hill Cipher</h1>
+
+        <div class="mt-4">
+            <input type="text" class="input-field" />
+            <button class="cipher-btn" data-cipher="hill-cipher">Cipher</button>
+            <div id="rsa-out"></div>
+        </div>
+
+        <textarea name="output-field"
+                  class="output-field form-control"
+                  placeholder="Output"
+                  style="height: 200px"
+                  readonly>Output goes here...</textarea>
+
+        <div class="learn-section"></div>
     </div>
+
+    <script type ="text/javascript" src="{{ url_for('static', filename='js/api.js')}}" defer></script>
 {% endblock content %}
