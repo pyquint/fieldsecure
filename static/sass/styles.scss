@@ -1,5 +1,119 @@
+input[type='number'] {
+    -moz-appearance: textfield;
+    /*For FireFox*/
+
+    &::-webkit-inner-spin-button {
+        /*For Webkits like Chrome and Safari*/
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+// https://stackoverflow.com/a/16391235
+@for $index from 1 through 6 {
+    h#{$index} {
+        font-family: 'Orbitron';
+        font-weight: 800;
+        margin-top: 32px;
+        margin-bottom: 16px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 970px;
+    }
+}
+
+#title {
+    font-family: 'Orbitron';
+    font-weight: 800;
+}
+
+input,
+textarea,
+.step {
+    background-color: #EFF5FA;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.step {
+    padding: 50px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+textarea {
+    padding-top: 16px;
+    padding-left: 16px;
+    height: 200px;
+    width: 100%;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: rgb(241, 241, 241);
+    font-family: 'Inter';
+    font-size: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100vh;
+    margin: 0;
+}
+
+header {
+    background-color: #0274F9;
+    margin-bottom: 32px;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    min-height: 50px;
+}
+
+
+header #logo {
+    width: 64px;
+}
+
+header #title {
+    font-weight: 800;
+    font-size: 48px;
+}
+
+h1 {
+    font-size: 48px;
+
+}
+
+h2 {
+
+    font-size: 36px;
+}
+
+h3 {
+    font-size: 32px;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+h1,
+h2 {
+    margin-top: 42px;
+}
+
+.learn-section {
+    clear: both;
 }
 
 // .MathJax.cipher-step {

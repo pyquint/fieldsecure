@@ -6,21 +6,44 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h1>RSA</h1>
+        <h1 class="text-center">RSA Cryptography</h1>
 
-        <div class="mt-4">
-            <input type="text" class="input-field" />
-            <button class="cipher-btn" data-cipher="rsa">Cipher</button>
-            <div id="rsa-out"></div>
+        <label for="input-field">Input textbox</label>
+        <textarea name="input-field" class="mb-4"></textarea>
+
+        <div class="row g-0 row-cols-3 mb-2">
+            <div class="col">
+                Custom key:
+                <br />
+                (Input two large prime numbers)
+            </div>
+            <div class="col">
+                <label for="user-p">p:</label>
+                <input name="user-p" type="number" />
+            </div>
+            <div class="col">
+                <label for="user-q">q:</label>
+                <input name="user-q" type="text" />
+            </div>
         </div>
 
-        <textarea name="output-field"
-                  class="output-field form-control"
-                  placeholder="Output"
-                  style="height: 200px"
-                  readonly>Output goes here...</textarea>
+        <div class="row g-0 row-cols-3 mb-4">
+            <div class="col">Program-generated key:</div>
+            <div class="col">
+                <label for="user-p">p:</label>
+                <input name="user-p" type="number" />
+            </div>
+            <div class="col">
+                <label for="user-q">q:</label>
+                <input name="user-q" type="text" />
+            </div>
+        </div>
 
-        <div class="learn-section"></div>
+        <textarea name="output-field" class="output-field mb-4" placeholder="Output"  readonly>Output goes here...</textarea>
+
+        <button class="btn btn-warning cipher-btn float-end" data-cipher="rsa">Cipher</button>
+
+        <div class="learn-section mb-4"></div>
     </div>
 
     <script type ="text/javascript" src="{{ url_for('static', filename='js/api.js')}}" defer></script>
