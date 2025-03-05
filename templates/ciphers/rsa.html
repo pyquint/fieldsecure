@@ -1,50 +1,64 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA Cryptography</title>
+    <link rel="stylesheet" href="D:\Projects\fieldsecure\static\sass\css.css">
+</head>
+<body>
+    <header>
+        <img src="D:\Projects\fieldsecure\static\img\encrypted.png" alt="Logo" class="logo">
+        <h3>FieldSecure</h3>
+    </header>
 
-{% block title %}
-    FieldSecure - RSA
-{% endblock title %}
+    <h2 class="title">RSA CRYPTOGRAPHY</h2>
+    
+    <section id="interactive">
+        <div class="label-container">
+            <label for="message" class="input-label">Input Message:</label>
+        </div>
+        <form id="rsa-form">
+            <div class="input-container">
+                <input type="text" id="message" name="message" placeholder="Enter your message" required>
+            </div>       
+        </form>
 
-{% block content %}
-    <div class="container mt-4">
-        <h1 class="text-center">RSA Cryptography</h1>
-
-        <label for="input-field">Input textbox</label>
-        <textarea name="input-field" class="mb-4"></textarea>
-
-        <div class="row g-0 row-cols-3 mb-2">
-            <div class="col">
-                Custom key:
-                <br />
-                (Input two large prime numbers)
-            </div>
-            <div class="col">
-                <label for="user-p">p:</label>sdgsdg
-                <input name="user-p" type="number" />
-            </div>
-            <div class="col">
-                <label for="user-q">q:</label>
-                <input name="user-q" type="text" />
+        <div class="key-section">     
+            <h3>Custom Key</h3>
+            <h6 class="subtext">(Input two large prime numbers)</h6>
+            <div class="key-container">
+                <label>Prime p: <input type="number" id="primeP" class="key-input"></label>
+                <label>Prime q: <input type="number" id="primeQ" class="key-input"></label>
             </div>
         </div>
 
-        <div class="row g-0 row-cols-3 mb-4">
-            <div class="col">Program-generated key:</div>
-            <div class="col">
-                <label for="user-p">p:</label>
-                <input name="user-p" type="number" />
-            </div>
-            <div class="col">
-                <label for="user-q">q:</label>
-                <input name="user-q" type="text" />
+        <div class="key-section">
+            <h3>Program Generates Key</h3>
+            <div class="key-container">
+                <label>Prime p: <input type="number" id="genPrimeP" class="key-input"></label>
+                <label>Prime q: <input type="number" id="genPrimeQ" class="key-input"></label>
+                <button class="generate-button" onclick="generateKeys()">Generate</button> 
             </div>
         </div>
 
-        <textarea name="output-field" class="output-field mb-4" placeholder="Output"  readonly>Output goes here...</textarea>
+        <div class="label-container">
+            <label for="output" class="output-label">Output Message:</label>
+        </div>
+        <div class="output-container">
+            <p id="output"></p>
+        </div>
 
-        <button class="btn btn-warning cipher-btn float-end" data-cipher="rsa">Cipher</button>
+        <div class="input-container no-border">
+            <div class="button-container">
+                <button class="generate-button" type="button" onclick="encryptMessage()">Encrypt</button>   
+                <button class="generate-button" type="button" onclick="decryptMessage()">Decrypt</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- I forgot about the code that links to the other one, and deleted it, sorry T.T -->
 
-        <div class="learn-section mb-4"></div>
-    </div>
-
-    <script type ="text/javascript" src="{{ url_for('static', filename='js/api.js')}}" defer></script>
-{% endblock content %}
+    <script src="D:\Projects\fieldsecure\static\js\js.js"></script>
+</body>
+</html>

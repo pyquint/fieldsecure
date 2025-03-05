@@ -1,0 +1,187 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #0274F9;
+    color: #fff;
+    padding: 0.5em 0;
+    text-align: left; 
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    padding-left: 1em; 
+}
+
+header .logo {
+    height: 30px;
+    margin-right: 1em;
+}
+
+.title {
+    text-align: center;
+    color: #0073e6;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+section {
+    margin-bottom: 2em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label, button {
+    margin-bottom: 1em;
+}
+
+/* Style for input and output boxes */
+.input-container, .output-container {
+    border: 2px solid #333;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 100%;
+    word-wrap: break-word;
+    margin: 10px auto;
+    text-align: left;
+}
+
+/* Align labels on top of the boxes */
+.label-container {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto 5px auto;
+    text-align: left;
+    padding-left: 10px; 
+}
+
+/* Styles for input and output labels */
+.input-label, .output-label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: -8px;
+    font-weight: normal;
+}
+
+/* Input box match output size */
+.input-container input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: px;
+    background: transparent;
+}
+
+/* Style for output container */
+.output-container {
+    background-color: #fff;
+}
+
+#output {
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+}
+
+/* Button styles */
+button {
+    padding: 0.5em;
+    background-color: #0274F9;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Styles for key input fields */
+.key-input {
+    border: 1px solid #333;
+    outline: none;
+    font-size: 14px;
+    padding: 8px;
+    background: transparent;
+    width: 45%;
+    border-radius: 5px;
+}
+
+/* Container for key inputs */
+.key-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Styles for key sections (Custom, Program Generated)*/
+.key-section {
+    border: none;
+    padding: 10px;
+    background-color: transparent;
+    max-width: 400px;
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+/* Remove borders for container holding encrypt/decrypt buttons */
+.no-border {
+    border: none;
+    padding: 10px;
+    background-color: transparent;
+    max-width: 400px;
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+/* encrypt/decrypt buttons container */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Style for generate, encrypt/decrypt buttons */
+.generate-button {
+    padding: 0.5em;
+    background-color: #0274F9;
+    height: 35px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 11px;
+}
+
+.generate-button:hover {
+    background-color: #555;
+}
+
+/* Adjust spacing for subtext */
+.subtext {
+    margin-top: -10px;
+    font-weight: normal;
+}
+
+.output-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    min-height: 30px;
+    border-radius: 5px;
+}
