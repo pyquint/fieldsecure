@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    FieldSecure - Hill Cipher
+{% endblock title %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center">Hill Cipher Cryptography</h1>
+
+        <p class="justify">
+            The Hill Cipher is a polygraphic substitution cipher that encrypts text by matrix multiplication. Lester Hill devised it in 1929, making it one of the first linear algebra-based encryption systems.
+        </p>
+
+        <p class="justify">
+            The Hill Cipher encrypts letters as blocks rather than individually. A key matrix (a square matrix) is used to convert plaintext to ciphertext using modular arithmetic. To decrypt, the inverted key matrix is utilized.
+        </p>
+        <hr />
+        <label for="message-field">Input textbox</label>
+        <textarea name="message-field" class="mb-4" autocapitalize="on"></textarea>
+
+        <div class="row g-0 row-cols-2 mb-4">
+            <div class="col">
+                <label for="key-field">Custom key:</label>
+            </div>
+            <div class="col">
+                <input name="key-field" type="text" autocapitalize="on" />
+            </div>
+        </div>
+
+        <textarea name="output-field" class="mb-4" placeholder="Output" readonly autocapitalize="on">Output goes here...</textarea>
+
+        <button class="btn btn-warning float-end" id="hill-cipher-btn">Cipher</button>
+
+        <div class="learn-section mb-4"></div>
+    </div>
+
+    <script type ="text/javascript" src="{{ url_for('static', filename='js/api.js')}}" defer></script>
+{% endblock content %}

@@ -1,0 +1,324 @@
+input[type='number'] {
+    -moz-appearance: textfield;
+    /*For FireFox*/
+
+    &::-webkit-inner-spin-button {
+        /*For Webkits like Chrome and Safari*/
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+
+// https://stackoverflow.com/a/16391235
+@for $index from 1 through 6 {
+    h#{$index} {
+        font-family: 'Orbitron';
+        font-weight: 800;
+        margin-top: 32px;
+        margin-bottom: 16px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 970px;
+    }
+}
+
+#title {
+    font-family: 'Orbitron';
+    font-weight: 800;
+}
+
+input,
+textarea,
+.step {
+    background-color: #EFF5FA;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.step {
+    padding: 50px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+textarea {
+    padding-top: 16px;
+    padding-left: 16px;
+    height: 200px;
+    width: 100%;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter';
+    font-size: 24px;
+
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f4;
+
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #0274F9;
+    margin-bottom: 32px;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    min-height: 50px;
+}
+
+
+header #logo {
+    width: 64px;
+}
+
+header #title {
+    font-weight: 800;
+    font-size: 48px;
+}
+
+h1 {
+    font-size: 48px;
+
+}
+
+h2 {
+
+    font-size: 36px;
+}
+
+h3 {
+    font-size: 32px;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+h1,
+h2 {
+    margin-top: 42px;
+}
+
+.learn-section {
+    clear: both;
+}
+
+// .MathJax.cipher-step {
+//     font-size: 2em !important;
+// }
+
+// header {
+//     background-color: #0274F9;
+//     color: #fff;
+//     padding: 0.5em 0;
+//     text-align: left;
+//     display: flex;
+//     align-items: center;
+//     justify-content: flex-start;
+//     padding-left: 1em;
+// }
+
+// header .logo {
+//     height: 30px;
+//     margin-right: 1em;
+// }
+
+// .title {
+//     text-align: center;
+//     color: #0073e6;
+//     font-size: 24px;
+//     font-weight: bold;
+// }
+
+// section {
+//     margin-bottom: 2em;
+// }
+
+// form {
+//     display: flex;
+//     flex-direction: column;
+// }
+
+label,
+button {
+    margin-bottom: 1em;
+}
+
+/* Style for input and output boxes */
+// .input-container,
+// .output-container {
+//     border: 2px solid #333;
+//     padding: 10px;
+//     background-color: #fff;
+//     border-radius: 5px;
+//     max-width: 400px;
+//     width: 100%;
+//     word-wrap: break-word;
+//     margin: 10px auto;
+//     text-align: left;
+// }
+
+// /* Align labels on top of the boxes */
+// .label-container {
+//     max-width: 400px;
+//     width: 100%;
+//     margin: 0 auto 5px auto;
+//     text-align: left;
+//     padding-left: 10px;
+// }
+
+// /* Styles for input and output labels */
+// .input-label,
+// .output-label {
+//     display: block;
+//     font-size: 14px;
+//     color: #333;
+//     margin-bottom: -8px;
+//     font-weight: normal;
+// }
+
+// /* Input box match output size */
+// .input-container input {
+//     width: 100%;
+//     border: none;
+//     outline: none;
+//     font-size: 14px;
+//     padding: px;
+//     background: transparent;
+// }
+
+// /* Style for output container */
+// .output-container {
+//     background-color: #fff;
+// }
+
+// #output {
+//     font-size: 14px;
+//     color: #333;
+//     text-align: left;
+// }
+
+/* Button styles */
+button {
+    padding: 0.5em;
+    background-color: #0274F9;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+// /* Styles for key input fields */
+// .key-input {
+//     border: 1px solid #333;
+//     outline: none;
+//     font-size: 14px;
+//     padding: 8px;
+//     background: transparent;
+//     width: 45%;
+//     border-radius: 5px;
+// }
+
+// /* Container for key inputs */
+// .key-container {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     gap: 10px;
+// }
+
+// /* Styles for key sections (Custom, Program Generated)*/
+// .key-section {
+//     border: none;
+//     padding: 10px;
+//     background-color: transparent;
+//     max-width: 400px;
+//     width: 100%;
+//     margin: 10px auto;
+//     text-align: center;
+// }
+
+/* Remove borders for container holding encrypt/decrypt buttons */
+.no-border {
+    border: none;
+    padding: 10px;
+    background-color: transparent;
+    max-width: 400px;
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+/* encrypt/decrypt buttons container */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Style for generate, encrypt/decrypt buttons */
+.generate-button {
+    padding: 0.5em;
+    background-color: #0274F9;
+    height: 35px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 11px;
+}
+
+.generate-button:hover {
+    background-color: #555;
+}
+
+// /* Adjust spacing for subtext */
+// .subtext {
+//     margin-top: -10px;
+//     font-weight: normal;
+// }
+
+// .output-box {
+//     border: 1px solid #ccc;
+//     padding: 10px;
+//     margin: 10px 0;
+//     background-color: #f9f9f9;
+//     min-height: 30px;
+//     border-radius: 5px;
+// }
+
+textarea[name="message-field"],
+input[name="key-field"] {
+    text-transform: uppercase;
+}
+
+.justify {
+    text-align: justify;
+}
+
+
+table th,
+td {
+    border: 1px solid black;
+    font-size: 14px;
+}

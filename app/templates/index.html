@@ -19,10 +19,8 @@
         <h1 class="display-5 fw-bold text-body-emphasis">FieldSecure</h1>
 
         <div class="mt-5">
-            <a class="btn btn-warning text-white" href="{{ url_for('rsa') }}">RSA</a>
-            <a class="btn btn-warning text-white" href="{{ url_for('hillcipher') }}">Hill Cipher</a>
+            <a class="btn btn-warning text-white" href="{{ url_for('rsa.rsa') }}">RSA</a>
+            <a class="btn btn-warning text-white" href="{{ url_for('hill_cipher.hill_cipher') }}">Hill Cipher</a>
         </div>
-
-        {# <a href="{{ url_for('encrypt') }}" class="btn btn-primary">Start</a> #}
     </div>
 {% endblock content %}

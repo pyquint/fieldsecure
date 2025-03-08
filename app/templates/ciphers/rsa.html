@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    FieldSecure - RSA
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="title">RSA Cryptography</h2>
+
+        <div class="label-container">
+            <label for="message" class="input-label">Input Message:</label>
+        </div>
+        <form id="rsa-form">
+            <div class="input-container">
+                <input type="text" id="message" name="message" placeholder="Enter your message" required />
+            </div>
+        </form>
+
+        <div class="key-section">
+            <h3>Custom Key</h3>
+            <h6 class="subtext">(Input two large prime numbers)</h6>
+            <div class="key-container">
+                <label>
+                    Prime p:
+                    <input type="number" id="primeP" class="key-input" />
+                </label>
+                <label>
+                    Prime q:
+                    <input type="number" id="primeQ" class="key-input" />
+                </label>
+            </div>
+        </div>
+
+        <div class="key-section">
+            <h3>Program Generates Key</h3>
+            <div class="key-container">
+                <label>
+                    Prime p:
+                    <input type="number" id="genPrimeP" class="key-input" />
+                </label>
+                <label>
+                    Prime q:
+                    <input type="number" id="genPrimeQ" class="key-input" />
+                </label>
+                <button class="generate-button" onclick="generateKeys()">Generate</button>
+            </div>
+        </div>
+
+        <div class="label-container">
+            <label for="output" class="output-label">Output Message:</label>
+        </div>
+        <div class="output-container">
+            <p id="output"></p>
+        </div>
+
+        <div class="input-container no-border">
+            <div class="button-container">
+                <button class="generate-button" type="button" onclick="encryptMessage()">Encrypt</button>
+                <button class="generate-button" type="button" onclick="decryptMessage()">Decrypt</button>
+            </div>
+        </div>
+
+        <div class="learn-section mb-4"></div>
+
+        <script src="D:\Projects\fieldsecure\static\js\js.js"></script>
+    </div>
+{% endblock content %}

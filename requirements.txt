@@ -11,8 +11,10 @@ jsbeautifier==1.15.3
 json5==0.10.0
 libsass==0.23.0
 MarkupSafe==3.0.2
+numpy==2.2.3
 pathspec==0.12.1
 pyasn1==0.6.1
+python-dotenv==1.0.1
 PyYAML==6.0.2
 regex==2024.11.6
 rsa==4.9

@@ -1,0 +1,179 @@
+input[type='number'] {
+  -moz-appearance: textfield;
+  /*For FireFox*/ }
+  input[type='number']::-webkit-inner-spin-button {
+    /*For Webkits like Chrome and Safari*/
+    -webkit-appearance: none;
+    margin: 0; }
+
+h1 {
+  font-family: 'Orbitron';
+  font-weight: 800;
+  margin-top: 32px;
+  margin-bottom: 16px; }
+
+h2 {
+  font-family: 'Orbitron';
+  font-weight: 800;
+  margin-top: 32px;
+  margin-bottom: 16px; }
+
+h3 {
+  font-family: 'Orbitron';
+  font-weight: 800;
+  margin-top: 32px;
+  margin-bottom: 16px; }
+
+h4 {
+  font-family: 'Orbitron';
+  font-weight: 800;
+  margin-top: 32px;
+  margin-bottom: 16px; }
+
+h5 {
+  font-family: 'Orbitron';
+  font-weight: 800;
+  margin-top: 32px;
+  margin-bottom: 16px; }
+
+h6 {
+  font-family: 'Orbitron';
+  font-weight: 800;
+  margin-top: 32px;
+  margin-bottom: 16px; }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 970px; } }
+
+#title {
+  font-family: 'Orbitron';
+  font-weight: 800; }
+
+input,
+textarea,
+.step {
+  background-color: #EFF5FA;
+  border: 1px solid black;
+  border-radius: 5px; }
+
+.step {
+  padding: 50px;
+  margin-bottom: 16px;
+  text-align: center; }
+
+textarea {
+  padding-top: 16px;
+  padding-left: 16px;
+  height: 200px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+body {
+  font-family: 'Inter';
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0; }
+
+header {
+  background-color: #0274F9;
+  margin-bottom: 32px; }
+
+main {
+  flex: 1; }
+
+footer {
+  min-height: 50px; }
+
+header #logo {
+  width: 64px; }
+
+header #title {
+  font-weight: 800;
+  font-size: 48px; }
+
+h1 {
+  font-size: 48px; }
+
+h2 {
+  font-size: 36px; }
+
+h3 {
+  font-size: 32px; }
+
+label {
+  margin-bottom: 8px; }
+
+h1,
+h2 {
+  margin-top: 42px; }
+
+.learn-section {
+  clear: both; }
+
+label,
+button {
+  margin-bottom: 1em; }
+
+/* Style for input and output boxes */
+/* Button styles */
+button {
+  padding: 0.5em;
+  background-color: #0274F9;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px; }
+
+button:hover {
+  background-color: #555; }
+
+/* Remove borders for container holding encrypt/decrypt buttons */
+.no-border {
+  border: none;
+  padding: 10px;
+  background-color: transparent;
+  max-width: 400px;
+  width: 100%;
+  margin: 10px auto;
+  text-align: center; }
+
+/* encrypt/decrypt buttons container */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; }
+
+/* Style for generate, encrypt/decrypt buttons */
+.generate-button {
+  padding: 0.5em;
+  background-color: #0274F9;
+  height: 35px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 11px; }
+
+.generate-button:hover {
+  background-color: #555; }
+
+textarea[name="message-field"],
+input[name="key-field"] {
+  text-transform: uppercase; }
+
+.justify {
+  text-align: justify; }
+
+table th,
+td {
+  border: 1px solid black;
+  font-size: 14px; }
+
+/*# sourceMappingURL=styles.scss.css.map */
