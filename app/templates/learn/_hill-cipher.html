@@ -1,0 +1,115 @@
+<h2>Key Generation</h2>
+
+<h3>Step 1:</h3>
+<p>
+    Replace each letter in the key by its index in the alphabet $\pmod{26}$ and create a square matrix $K_{n \times n}$ from the values.
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Letter</th>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E</td>
+            <td>F</td>
+            <td>G</td>
+            <td>H</td>
+            <td>I</td>
+            <td>J</td>
+            <td>K</td>
+            <td>L</td>
+            <td>M</td>
+            <td>N</td>
+            <td>O</td>
+            <td>P</td>
+            <td>Q</td>
+            <td>R</td>
+            <td>S</td>
+            <td>T</td>
+            <td>U</td>
+            <td>V</td>
+            <td>W</td>
+            <td>X</td>
+            <td>Y</td>
+            <td>Z</td>
+        </tr>
+        <tr>
+            <th>Number</th>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td>21</td>
+            <td>22</td>
+            <td>23</td>
+            <td>24</td>
+            <td>25</td>
+        </tr>
+    </table>
+</div>
+
+<p>With key ${{ parameters.key }}$,</p>
+<div class="step">
+    $$ {{ parameters.key }} \to {{ key_matrix }} $$
+    then,
+    $$ K = {{ key_matrix }} $$
+</div>
+
+<h3>Step 2:</h3>
+<p>
+    Ensure that the inverse operation applies on the key matrix $K_{n x n} \pmod{26}$, i.e. $K$ has an <a href="{{ url_for('main.invertible_matrix') }}">invertible matrix</a> $K^{-1}$.
+</p>
+
+<h2>Encryption</h2>
+
+<h3>Step 1:</h3>
+
+Create a series of $1 \times n$ matrices, where $n$ is derived from the key matrix $K_{n \times n}$. This requires the length of the message should be a multiple of $n$, otherwise fill the missing length with a placeholder character, usually $X$.
+
+<div class="step">
+    $$
+    {{ parameters.message }} \to {{ message_chunk_vectors | join }} $$
+</div>
+
+<p>Convert each letter in the mesage using the same process as the key matrix generation.</p>
+<div class="step">
+    $$ {{ message_chunk_vectors | join }} \to {{ message_chunk_num_vectors | join }} $$
+</div>
+
+<h3>Step 2:</h3>
+<p>Multiply each column with the key matrix $K \pmod{26}$.</p>
+<div class="step">
+    {% for (vector, modulo) in zip(message_chunk_num_vectors, product_modulos) %}
+        $$ {{ key_matrix }} {{ vector }} = {{ modulo }} \pmod{26} $$
+    {% endfor %}
+</div>
+
+<h3>Step 3:</h3>
+<p>Use the products $\pmod{26}$ as indices in the alphabet to produce letters.</p>
+<div class="step">
+    $${{ product_modulos | join }} \to  {{ output_chunk_char_vectors | join }}$$
+</div>
+
+<h3>Step 4:</h3>
+<p>Join the letters into one string to get your output.</p>
+<div class="step">$${{ output }}$$</div>

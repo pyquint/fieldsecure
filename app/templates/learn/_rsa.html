@@ -1,0 +1,77 @@
+<h1>What is RSA?</h1>
+
+<p>
+    RSA (Rivest-Shamir-Adleman) is a popular public-key cryptographic technique for
+    safe data encryption and deciphering. It relies on the mathematical difficulty
+    of factoring large prime numbers, which makes it highly secure. RSA utilizes two keys:
+</p>
+
+<ul>
+    <li>A public key for encryption.</li>
+    <li>A private key for decryption.</li>
+</ul>
+
+<p>
+    Thus, ensures that no matter how an attacker intercepts the encrypted message,
+    they are unable to decrypt it without the private key.
+</p>
+
+<h2>Key Generation</h2>
+
+<h3>Step 1:</h3>
+<p>Compute $n = p \times q$. $n$ is used as the modulus for both the public and private keys.</p>
+<div class="step">$$n = p \times q$$</div>
+
+<h3>Step 2:</h3>
+<p>Compute the totient function,  $\phi(n) = (p - 1) \times (q - 1)$.</p>
+<div class="step">$$\phi(n) = (p - 1) \times (q - 1)$$</div>
+
+<h3>Step 3:</h3>
+<p>
+    Public Key $e$ : Choose an integer $e$ such that $1 < e < \phi(n)$ and $e$ is coprime with $\phi(n)$.
+</p>
+<div class="step">
+    <p>
+        Common choice are:
+        <br />
+        $17$ - small, fast for encryption
+        <br />
+        $65537$ - larger but still efficient (most common today)
+    </p>
+</div>
+
+<h3>Step 4:</h3>
+<p>
+    Compute $d$ as the modular multiplicative inverse of $e \mod{\phi(n)}$:
+    <br />
+    $d \equiv e^{-1} \mod{\phi(n)}$ meaning $(e \times d)\mod{\phi(n)} = 1$
+</p>
+<div class="step">if $e = 17$: $$d=2753$$ since $$ 17 \times 2753 \mod{3120} = 1 $$</div>
+
+<h3>Step 5:</h3>
+<p>Display keys.</p>
+<div class="step">
+    <p>Public Key: $(e, n)$</p>
+    <p>Private Key: $(d, n)$</p>
+</div>
+
+<h2>Encryption</h2>
+
+<h3>Step 1:</h3>
+<p>Use $M \equiv C^{d} \mod{n}$ to recover the plaintext.</p>
+<div class="step">
+    <p>Private Key: $(d, n)$</p>
+    <p>
+        $$ 2202 = 2202^{2753} \mod{3233} = 7 (H) $$
+        $$ 1630 = 1630^{2753} \mod{3233} = 4 (E) $$
+        $$ 2040 = 2040^{2753} \mod{3233} = 11 (L) $$
+        $$ 2040 = 2040^{2753} \mod{3233} = 11 (L) $$
+        $$ 2186 = 2186^{2753} \mod{3233} = 14 (O) $$
+    </p>
+</div>
+
+<h3>Step 2:</h3>
+<p>Output decrypted message.</p>
+<div class="step">
+    <p>$HELLO$</p>
+</div>
