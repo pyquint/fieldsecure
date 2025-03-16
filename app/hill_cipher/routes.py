@@ -1,58 +1,141 @@
+import re
+
 import numpy as np
-from flask import render_template, request
+from flask import jsonify, render_template, request, session
 
 from app.hill_cipher import bp
-from app.mathutils import index_c, np_to_latex, square_matrix_from_str, str_from_ndarray
+from app.mathutils import (
+    column_vector,
+    index_c,
+    is_invertible,
+    np_to_latex,
+    square_matrix_from_str,
+    str_from_ndarray,
+)
+from app.types import ColumnVector, Matrix
 
 
 @bp.route("/hill-cipher", methods=["GET", "POST"])
 def hill_cipher():
-    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-        message = request.args.get("message", "")
-        key = request.args.get("key", "")
+    return render_template("ciphers/hill-cipher.html")
 
-        print(f"{message=}")
-        print(f"{key=}")
 
-        msg_char_nums = [index_c(c) for c in message.upper()]
+@bp.route("/api/hill-cipher", methods=["GET", "POST"])
+def hill_cipher_api():
+    message: str = request.args.get("message", "").strip()
+    key: str = request.args.get("key", "").strip()
+    # k is either 2 or 3
+    k = request.args.get("k", type=int)
 
-        msg_vector = np.array([[c] for c in msg_char_nums])
-        print(f"{msg_vector=}")
+    # remove special characters
+    message = re.sub("[^a-zA-Z0-9 \n.]", "", message)
 
-        key_matrix = square_matrix_from_str(key)
-        print(f"{key_matrix=}")
+    # split message into k-length chunks
+    msg_chunks: list[str] = split_to_chunks(message, k)
+    message = "".join(msg_chunks)
 
-        dot_product = np.dot(key_matrix, msg_vector)
-        print(f"{dot_product=}")
+    print(f"{message=}")
+    print(f"{key=}")
+    print(f"{k=}")
 
-        prod_mod = dot_product % 26
-        print(f"{prod_mod=}")
+    print(f"{msg_chunks=}")
 
-        output = str_from_ndarray(prod_mod)
-        print(f"{output=}")
+    # column vector representation of the chunks, in letters
+    msg_chunk_char_vectors: list[ColumnVector[np.str_]] = [
+        column_vector(chunk) for chunk in msg_chunks
+    ]
+    print(f"{msg_chunk_char_vectors=}")
 
-        response = {
-            "message": message,
-            "message_char_nums": msg_char_nums,
-            "key": key,
-            "message_vector": np_to_latex(msg_vector),
-            "key_matrix": np_to_latex(key_matrix),
-            "dot_product": np_to_latex(dot_product),
-            "product_mod26": np_to_latex(prod_mod),
-            "output": output,
-        }
+    # convert the letters in the chunks into alphabet indices
+    msg_num_chunks: list[list[int]] = [
+        [index_c(c) for c in chunk] for chunk in msg_chunks
+    ]
+    print(f"{msg_num_chunks=}")
 
-        print()
-        for key, val in response.items():
-            print(f"{key} : {val}\n")
-        print()
+    # column vector representation of the chunks, in indices
+    msg_chunk_num_vectors: list[ColumnVector[np.int_]] = [
+        column_vector(chunk) for chunk in msg_num_chunks
+    ]
+    print(f"{msg_chunk_num_vectors=}")
 
-        return {
-            "output": output,
-            "template": render_template(
-                "ciphers/learn/hill-cipher.html", hill_cipher=response
-            ),
-        }
+    key_matrix: Matrix[np.int_] = square_matrix_from_str(key)
+    print(f"{key_matrix=}")
 
-    else:
-        return render_template("ciphers/hill-cipher.html")
+    # example non-invertible matrix: np.array([[9, 6], [12, 8]])
+    print("Is the key matrix invertible?", is_invertible(key_matrix))
+    if not is_invertible(key_matrix):
+        return jsonify(message="Key matrix is not invertible."), 500
+
+    dot_products: list[ColumnVector[np.int_]] = [
+        np.dot(key_matrix, vectors) for vectors in msg_chunk_num_vectors
+    ]
+    print(f"{dot_products=}")
+
+    products_modulos: list[ColumnVector[np.int_]] = [
+        product % 26 for product in dot_products
+    ]
+    print(f"{products_modulos=}")
+
+    output_chunks = [str_from_ndarray(vector) for vector in products_modulos]
+    print(f"{output_chunks=}")
+
+    output_chunk_char_vectors = [column_vector(chunk) for chunk in output_chunks]
+
+    output = "".join(output_chunks)
+    print(f"{output=}")
+
+    response = {
+        "parameters": {"message": message, "key": key, "k": k},
+        "key_matrix": np_to_latex(key_matrix),
+        "message_chunks": msg_chunks,
+        "message_chunk_vectors": [
+            np_to_latex(vector) for vector in msg_chunk_char_vectors
+        ],
+        "message_chunk_num_vectors": [
+            np_to_latex(vector) for vector in msg_chunk_num_vectors
+        ],
+        "key_vector_dot_products": [
+            np_to_latex(dot_product) for dot_product in dot_products
+        ],
+        "product_modulos": [np_to_latex(modulo) for modulo in products_modulos],
+        "output_chunk_char_vectors": [
+            np_to_latex(vector) for vector in output_chunk_char_vectors
+        ],
+        "output_char_chunks": output_chunks,
+        "output": output,
+    }
+
+    session["hill_cipher_response"] = response
+
+    return jsonify(response)
+
+
+@bp.route("/render-subtemplate")
+def render_subtemplate():
+    response = session.get("hill_cipher_response", {})
+    session.pop("hill_cipher_response", None)
+    return render_template("learn/_hill-cipher.html", **response)
+
+
+@bp.app_template_filter()
+def nptl(nparray: np.ndarray):
+    return np_to_latex(nparray)
+
+
+@bp.app_template_filter()
+def join(latexes: list[str], sep=","):
+    return sep.join(latexes)
+
+
+def split_to_chunks(text: str, chunk_len: int, placeholder: str = "X") -> list[str]:
+    chunks = []
+
+    for i in range(0, len(text), chunk_len):
+        chunk = text[i : i + chunk_len]
+
+        if len(chunk) < chunk_len:
+            missing_chars = chunk_len - len(chunk)
+            chunk += placeholder * missing_chars
+        chunks.append(chunk)
+
+    return chunks

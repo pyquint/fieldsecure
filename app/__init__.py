@@ -15,14 +15,16 @@ def create_app(config_class=Config):
 
     from app.hill_cipher import bp as hill_cipher_bp
 
-    app.register_blueprint(hill_cipher_bp, url_prefix="/hill_cipher")
+    app.register_blueprint(hill_cipher_bp)
 
     from app.rsa import bp as rsa_cipher_bp
 
-    app.register_blueprint(rsa_cipher_bp, url_prefix="/rsa")
+    app.register_blueprint(rsa_cipher_bp)
 
     from app.main import bp as main_bp
 
     app.register_blueprint(main_bp)
+
+    app.jinja_env.globals.update(zip=zip)
 
     return app

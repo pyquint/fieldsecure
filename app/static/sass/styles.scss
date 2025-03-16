@@ -34,13 +34,14 @@ input[type='number'] {
 input,
 textarea,
 .step {
-    background-color: #EFF5FA;
+    background-color: white; // #EFF5FA;
     border: 1px solid black;
     border-radius: 5px;
 }
 
 .step {
     padding: 50px;
+    margin-top: 16px;
     margin-bottom: 16px;
     text-align: center;
 }
@@ -320,5 +321,5 @@ input[name="key-field"] {
 table th,
 td {
     border: 1px solid black;
-    font-size: 14px;
+    font-size: 16px;
 }

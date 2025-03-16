@@ -19,12 +19,18 @@
         <label for="message-field">Input textbox</label>
         <textarea name="message-field" class="mb-4" autocapitalize="on"></textarea>
 
-        <div class="row g-0 row-cols-2 mb-4">
-            <div class="col">
+        <div class="row g-0 row-cols-3 mb-4">
+            <div class="col-3">
                 <label for="key-field">Custom key:</label>
             </div>
+            <div class="col-3">
+                <input type="radio" id="btn-2x2" name="k" value="2" checked="true" />
+                <label for="html">2x2</label>
+                <input type="radio" id="btn-3x3" name="k" value="3" />
+                <label for="css">3x3</label>
+            </div>
             <div class="col">
-                <input name="key-field" type="text" autocapitalize="on" />
+                <input name="key-field" id="key-field" type="text" autocapitalize="on" />
             </div>
         </div>
 
@@ -34,6 +40,21 @@
 
         <div class="learn-section mb-4"></div>
     </div>
+
+    <script>
+        $(function() {
+            function setMaxLength() {
+                var maxlength = $("input[name='k']:checked").val() ** 2;
+                $("#key-field").attr("maxlength", maxlength);
+            }
+
+            // on page load
+            setMaxLength();
+
+            // on radio button click
+            $("input[name='k']").on("change", setMaxLength);
+        });
+    </script>
 
     <script type ="text/javascript" src="{{ url_for('static', filename='js/api.js')}}" defer></script>
 {% endblock content %}
