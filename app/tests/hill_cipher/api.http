@@ -1,0 +1,12 @@
+
+GET http://127.0.0.1:5001/api/hill-cipher?message=HELP&key=JSAI&k=2
+# should return FGFQ
+
+###
+
+GET http://127.0.0.1:5001/api/hill-cipher?message=HELP&key=JGMI&k=2
+# should return ERROR CODE 500 because key matrix is not invertible
+
+###
+
+GET http://127.0.0.1:5001/api/hill-cipher?message=HELP&key=WOVSKLREH&k=3

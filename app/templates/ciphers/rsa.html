@@ -1,68 +1,68 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    FieldSecure - RSA
+    RSA
 {% endblock title %}
 
 {% block content %}
-    <div class="container">
-        <h2 class="title">RSA Cryptography</h2>
+    <div class="container mt-4">
+        <h1 class="text-center">RSA Cryptography</h1>
+        <p>
+            Disclaimer: This page is for educational purposes only. Never use the tool on this page for actual security-sensitive activities.
+        </p>
 
-        <div class="label-container">
-            <label for="message" class="input-label">Input Message:</label>
-        </div>
-        <form id="rsa-form">
-            <div class="input-container">
-                <input type="text" id="message" name="message" placeholder="Enter your message" required />
-            </div>
-        </form>
+        <hr />
 
-        <div class="key-section">
-            <h3>Custom Key</h3>
-            <h6 class="subtext">(Input two large prime numbers)</h6>
-            <div class="key-container">
-                <label>
-                    Prime p:
-                    <input type="number" id="primeP" class="key-input" />
-                </label>
-                <label>
-                    Prime q:
-                    <input type="number" id="primeQ" class="key-input" />
-                </label>
-            </div>
+        <label for="message-field">Input textbox:</label>
+        <textarea name="message-field" class="form-control mb-4" autocapitalize="on"></textarea>
+
+        <h3>Custom Keys</h3>
+
+        <div class="row">
+            <h6 class="subtext">Input two large prime numbers, or leave them empty to generate ones.</h6>
         </div>
 
-        <div class="key-section">
-            <h3>Program Generates Key</h3>
-            <div class="key-container">
-                <label>
-                    Prime p:
-                    <input type="number" id="genPrimeP" class="key-input" />
-                </label>
-                <label>
-                    Prime q:
-                    <input type="number" id="genPrimeQ" class="key-input" />
-                </label>
-                <button class="generate-button" onclick="generateKeys()">Generate</button>
+        <div class="row">
+            <div class="col">
+                <label for="prime-p">Prime p:</label>
+                <input type="text" id="prime-p" class="key-input form-control" />
+                <div id="error-p" class="invalid-feedback">Error.</div>
+            </div>
+
+            <div class="col">
+                <label for="prime-q">Prime q:</label>
+                <input type="text" id="prime-q" class="key-input form-control" />
+                <div id="error-q" class="invalid-feedback">Error.</div>
+            </div>
+
+            <div class="row">
+                <button class="btn btn-warning w-25 mt-3 ms-3" type="button" id="rsa-generate-keys-btn">
+                    Generate
+                </button>
             </div>
         </div>
 
-        <div class="label-container">
-            <label for="output" class="output-label">Output Message:</label>
-        </div>
-        <div class="output-container">
-            <p id="output"></p>
-        </div>
+        <div class="row">
+            <div class="col">
+                <label for="public-key">Public key $(n, e)$:</label>
+                <input name="public-key" class="form-control" readonly />
+            </div>
 
-        <div class="input-container no-border">
-            <div class="button-container">
-                <button class="generate-button" type="button" onclick="encryptMessage()">Encrypt</button>
-                <button class="generate-button" type="button" onclick="decryptMessage()">Decrypt</button>
+            <div class="col">
+                <label for="private-key">Private key $(d, n)$:</label>
+                <input name="private-key" class="form-control" readonly />
             </div>
         </div>
+
+        <div class="float-end mt-4 mb-4">
+            <button class="btn btn-warning" id="rsa-encrypt-btn">Encrypt</button>
+            <button class="btn btn-warning" id="rsa-decrypt-btn">Decrypt</button>
+        </div>
+
+        <textarea name="output-field" class="form-control mb-4" placeholder="Output" readonly autocapitalize="on">Output goes here...</textarea>
 
         <div class="learn-section mb-4"></div>
-
-        <script src="D:\Projects\fieldsecure\static\js\js.js"></script>
     </div>
+
+    <script type ="text/javascript" src="{{ url_for('static', filename='js/api.js')}}" defer></script>
 {% endblock content %}

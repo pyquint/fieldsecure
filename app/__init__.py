@@ -26,5 +26,6 @@ def create_app(config_class=Config):
     app.register_blueprint(main_bp)
 
     app.jinja_env.globals.update(zip=zip)
+    app.jinja_env.globals.update(len=len)
 
     return app

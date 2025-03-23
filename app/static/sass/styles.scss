@@ -1,3 +1,7 @@
+$body-font: 'Inter';
+$body-font-size: 1.4rem;
+$hr-margin: 2.5rem;
+
 input[type='number'] {
     -moz-appearance: textfield;
     /*For FireFox*/
@@ -15,7 +19,7 @@ input[type='number'] {
     h#{$index} {
         font-family: 'Orbitron';
         font-weight: 800;
-        margin-top: 32px;
+        margin-top: 16px;
         margin-bottom: 16px;
     }
 }
@@ -37,6 +41,7 @@ textarea,
     background-color: white; // #EFF5FA;
     border: 1px solid black;
     border-radius: 5px;
+    // max-height: 100%;
 }
 
 .step {
@@ -44,22 +49,40 @@ textarea,
     margin-top: 16px;
     margin-bottom: 16px;
     text-align: center;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: 100%;
+    max-height: 500px;
+
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
 }
 
 textarea {
     padding-top: 16px;
     padding-left: 16px;
     height: 200px;
-    width: 100%;
 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
+textarea[name="message-field"],
+textarea[name="output-field"],
+input[name="message-field"],
+input[name="output-field"] {
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 body {
-    font-family: 'Inter';
-    font-size: 24px;
+    font-family: $body-font;
+    font-size: $body-font-size;
 
     display: flex;
     flex-direction: column;
@@ -72,7 +95,7 @@ body {
 
 header {
     background-color: #0274F9;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
 }
 
 main {
@@ -95,7 +118,6 @@ header #title {
 
 h1 {
     font-size: 48px;
-
 }
 
 h2 {
@@ -107,16 +129,13 @@ h3 {
     font-size: 32px;
 }
 
-label {
-    margin-bottom: 8px;
-}
-
 h1,
 h2 {
-    margin-top: 42px;
+    margin-bottom: 1.2rem;
 }
 
 .learn-section {
+    margin-top: 5rem;
     clear: both;
 }
 
@@ -156,7 +175,6 @@ h2 {
 //     flex-direction: column;
 // }
 
-label,
 button {
     margin-bottom: 1em;
 }
@@ -321,5 +339,15 @@ input[name="key-field"] {
 table th,
 td {
     border: 1px solid black;
-    font-size: 16px;
+    font-size: $body-font-size;
+}
+
+hr {
+    margin-top: $hr-margin;
+    margin-bottom: $hr-margin;
+}
+
+.form-control {
+    font-family: $body-font;
+    font-size: $body-font-size;
 }

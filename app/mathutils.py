@@ -2,6 +2,7 @@ import math
 import random
 from collections.abc import Iterable
 from math import gcd
+from typing import Tuple
 
 import numpy as np
 from sympy import isprime, mod_inverse
@@ -103,23 +104,57 @@ def generate_rsa_keys(bits=8):
     return {"public": (e, n), "private": (d, n), "p": p, "q": q, "phi": phi_n}
 
 
-def encrypt_rsa(plaintext, public_key):
-    """Encrypt a plaintext message using RSA."""
-    e, n = public_key
-    ciphertext = [pow(ord(char), e, n) for char in plaintext]
-    return ciphertext
-
-
-def decrypt_rsa(ciphertext, private_key):
-    """Decrypt a ciphertext using RSA."""
-    d, n = private_key
-    plaintext = "".join(chr(pow(char, d, n)) for char in ciphertext)
-    return plaintext
-
-
 def is_invertible(sq_matrix: np.ndarray) -> bool:
     try:
         inv = np.linalg.inv(sq_matrix)
         return True
     except np.linalg.LinAlgError:
         return False
+
+
+def det(M: np.ndarray) -> int | float:
+    """
+    Bareiss algorithm to calculate the determinant of a `nxn` square matrix.
+
+    Preserves integer determinant for integer matrices.
+
+    reference: https://stackoverflow.com/a/66192895
+    """
+    M = M.copy()  # make a copy to keep original M unmodified
+    N, sign, prev = len(M), 1, 1
+    for i in range(N - 1):
+        if M[i][i] == 0:  # swap with another row having nonzero i's elem
+            swapto = next((j for j in range(i + 1, N) if M[j][i] != 0), None)
+            if swapto is None:
+                return 0  # all M[*][i] are zero => zero determinant
+            M[i], M[swapto], sign = M[swapto], M[i], -sign
+        for j in range(i + 1, N):
+            for k in range(i + 1, N):
+                # assert (M[j][k] * M[i][i] - M[j][i] * M[i][k]) % prev == 0
+                M[j][k] = (M[j][k] * M[i][i] - M[j][i] * M[i][k]) / prev
+        prev = M[i][i]
+    return sign * M[-1][-1]
+
+
+def egcd(a: int, b: int) -> Tuple[int, int, int]:
+    """return (g, x, y) such that a*x + b*y = g = gcd(a, b)
+
+    reference: https://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
+    """
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        b_div_a, b_mod_a = divmod(b, a)
+        g, x, y = egcd(b_mod_a, a)
+        return (g, y - b_div_a * x, x)
+
+
+def modinv(a: int, mod: int) -> int:
+    """return x such that (x * a) % b == 1
+
+    reference: https://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
+    """
+    g, x, _ = egcd(a, mod)
+    if g != 1:
+        raise Exception("gcd(a, b) != 1")
+    return x % mod

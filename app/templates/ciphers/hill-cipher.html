@@ -1,42 +1,77 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    FieldSecure - Hill Cipher
+    Hill Cipher
 {% endblock title %}
 
 {% block content %}
+    <style>
+        #key-field {
+            width: 100%;
+        }
+
+        #message-field.highlight {
+            animation: highlight 1s ease-in-out;
+        }
+
+        @keyframes highlight {
+            0% {
+                background-color: LightGoldenRodYellow;
+            }
+
+            100% {
+                background-color: none;
+            }
+        }
+    </style>
+
     <div class="container mt-4">
         <h1 class="text-center">Hill Cipher Cryptography</h1>
 
         <p class="justify">
-            The Hill Cipher is a polygraphic substitution cipher that encrypts text by matrix multiplication. Lester Hill devised it in 1929, making it one of the first linear algebra-based encryption systems.
+            The Hill cipher is a polygraphic substitution cipher that encrypts text by matrix multiplication. It was devised by Lester Hill in 1929, making it one of the first linear algebra-based encryption systems.
         </p>
 
         <p class="justify">
-            The Hill Cipher encrypts letters as blocks rather than individually. A key matrix (a square matrix) is used to convert plaintext to ciphertext using modular arithmetic. To decrypt, the inverted key matrix is utilized.
+            This cipher encrypts letters as blocks rather than individually. A key matrix (a square matrix) is used to convert plaintext to ciphertext using modular arithmetic. To decrypt, the inverted key matrix is utilized.
         </p>
-        <hr />
-        <label for="message-field">Input textbox</label>
-        <textarea name="message-field" class="mb-4" autocapitalize="on"></textarea>
 
-        <div class="row g-0 row-cols-3 mb-4">
-            <div class="col-3">
+        <hr />
+
+        <label for="message-field">Input textbox:</label>
+        <textarea name="message-field" id="message-field" class="form-control mb-4" autocapitalize="on"></textarea>
+
+        <div class="row mb-4 align-items-center">
+            <div class="col-lg-3">
                 <label for="key-field">Custom key:</label>
             </div>
-            <div class="col-3">
-                <input type="radio" id="btn-2x2" name="k" value="2" checked="true" />
-                <label for="html">2x2</label>
-                <input type="radio" id="btn-3x3" name="k" value="3" />
-                <label for="css">3x3</label>
+            <div class="col-lg-3">
+                <input type="radio" id="btn-2x2" name="keysize" value="4" checked="true" />
+                <label for="btn-2x2" class="me-4">$2 \times 2$</label>
+                <input type="radio" id="btn-3x3" name="keysize" value="9" />
+                <label for="btn-3x3">$3 \times 3$</label>
             </div>
             <div class="col">
-                <input name="key-field" id="key-field" type="text" autocapitalize="on" />
+                <input name="key-field" id="key-field" class="form-control" type="text" autocapitalize="on" />
+                <div id="key-error" class="invalid-feedback">Key matrix is not invertible.</div>
             </div>
         </div>
 
-        <textarea name="output-field" class="mb-4" placeholder="Output" readonly autocapitalize="on">Output goes here...</textarea>
+        <textarea name="output-field"
+                  class="form-control mb-4"
+                  placeholder="Output goes here..."
+                  readonly
+                  autocapitalize="on"></textarea>
 
-        <button class="btn btn-warning float-end" id="hill-cipher-btn">Cipher</button>
+        <div class="float-end">
+            <button class="btn btn-warning" id="copy-btn">Copy output to input</button>
+            <button class="btn btn-warning hill-cipher-btn" id="encrypt-btn" data-mode="encrypt" data->
+                Cipher
+            </button>
+            <button class="btn btn-warning hill-cipher-btn" id="decrypt-btn" data-mode="decrypt">
+                Decrypt
+            </button>
+        </div>
 
         <div class="learn-section mb-4"></div>
     </div>
@@ -44,15 +79,13 @@
     <script>
         $(function() {
             function setMaxLength() {
-                var maxlength = $("input[name='k']:checked").val() ** 2;
+                var maxlength = $("input[name='keysize']:checked").val();
                 $("#key-field").attr("maxlength", maxlength);
             }
 
-            // on page load
             setMaxLength();
 
-            // on radio button click
-            $("input[name='k']").on("change", setMaxLength);
+            $("input[name='keysize']").on("change", setMaxLength);
         });
     </script>
 
