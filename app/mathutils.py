@@ -1,56 +1,61 @@
 import math
-import random
 from collections.abc import Iterable
-from math import gcd
 from typing import Tuple
 
 import numpy as np
-from sympy import isprime, mod_inverse
 
-from app.types import ColumnVector, Vector
+from app.types import ColumnVector, Matrix, Vector
 
 
-def is_square(n):
+def is_square(n: int) -> bool:
     return n == math.isqrt(n) ** 2
 
 
-def is_square_of(k, n):
+def is_square_of(k: int, n: int) -> bool:
     return math.sqrt(n) == k
 
 
-def index_c(c):
+def index_c(c: str) -> int:
     """
     Returns the index of character c from the alphabet.
     """
     return (ord(c) - 65) % 26
 
 
-def alpha_i(i):
+def alpha_i(i: int) -> str:
     """
     Returns the character in the alphabet at index i.
     """
     return chr((i % 26) + 65)
 
 
-def square_matrix_from_str(string: str):
-    l = len(string)
-    if not string.isalpha() or not is_square(l):
+def square_matrix_from_str(string: str) -> np.ndarray[np.int_]:
+    length = len(string)
+    if not string.isalpha() or not is_square(length):
         print("The key must be letters and n^2 characters long")
-    k = math.isqrt(l)
+    k = math.isqrt(length)
     return np.array(
         [[index_c(c) for c in string[x : x + k]] for x in range(0, len(string), k)]
     )
 
 
 def column_vector(lst: Iterable) -> ColumnVector:
+    """column_vector
+
+    Args:
+        lst (Iterable): _description_
+
+    Returns:
+        ColumnVector: _description_
+    """
     return np.array([[e] for e in lst])
 
 
-def row_vector(lst: str) -> Vector:
-    return np.array([e for e in str])
+def row_vector(lst: Iterable) -> Vector:
+    return np.array([e for e in lst])
 
 
-def str_from_ndarray(array: np.ndarray):
+def str_from_ndarray(array: np.ndarray) -> str:
     return "".join("".join(alpha_i(i) for i in row) for row in array)
 
 
@@ -79,34 +84,9 @@ def inversible_key(k):
     pass
 
 
-def generate_prime(bits=8):
-    """Generate a random prime number with the given bit length."""
-    while True:
-        num = random.getrandbits(bits)
-        if isprime(num):
-            return num
-
-
-def generate_rsa_keys(bits=8):
-    """Generate RSA public and private keys."""
-    p = generate_prime(bits)
-    q = generate_prime(bits)
-    n = p * q
-    phi_n = (p - 1) * (q - 1)
-
-    # Choose e (common values: 3, 17, 65537)
-    e = 3
-    while e < phi_n and gcd(e, phi_n) != 1:
-        e += 2  # Ensure e is odd
-
-    d = mod_inverse(e, phi_n)
-
-    return {"public": (e, n), "private": (d, n), "p": p, "q": q, "phi": phi_n}
-
-
 def is_invertible(sq_matrix: np.ndarray) -> bool:
     try:
-        inv = np.linalg.inv(sq_matrix)
+        inv: Matrix[np.float64] = np.linalg.inv(sq_matrix)
         return True
     except np.linalg.LinAlgError:
         return False

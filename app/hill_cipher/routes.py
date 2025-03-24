@@ -5,7 +5,6 @@ import sympy as sp
 from flask import Response, jsonify, render_template, request, session
 
 import app.mathutils as mu
-import app.types as at
 from app.hill_cipher import bp
 from app.types import ColumnVector, Matrix
 

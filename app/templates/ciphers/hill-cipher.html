@@ -6,10 +6,6 @@
 
 {% block content %}
     <style>
-        #key-field {
-            width: 100%;
-        }
-
         #message-field.highlight {
             animation: highlight 1s ease-in-out;
         }
@@ -63,8 +59,8 @@
                   readonly
                   autocapitalize="on"></textarea>
 
+        <button class="btn btn-warning copy-btn">Copy output to input</button>
         <div class="float-end">
-            <button class="btn btn-warning" id="copy-btn">Copy output to input</button>
             <button class="btn btn-warning hill-cipher-btn" id="encrypt-btn" data-mode="encrypt" data->
                 Cipher
             </button>

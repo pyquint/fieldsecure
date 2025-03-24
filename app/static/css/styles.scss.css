@@ -176,10 +176,6 @@ button:hover {
 .generate-button:hover {
   background-color: #555; }
 
-textarea[name="message-field"],
-input[name="key-field"] {
-  text-transform: uppercase; }
-
 .justify {
   text-align: justify; }
 

@@ -14,7 +14,7 @@
         <hr />
 
         <label for="message-field">Input textbox:</label>
-        <textarea name="message-field" class="form-control mb-4" autocapitalize="on"></textarea>
+        <textarea name="message-field" class="form-control mb-4"></textarea>
 
         <h3>Custom Keys</h3>
 
@@ -49,17 +49,22 @@
             </div>
 
             <div class="col">
-                <label for="private-key">Private key $(d, n)$:</label>
+                <label for="private-key">Private key $(n, d)$:</label>
                 <input name="private-key" class="form-control" readonly />
             </div>
         </div>
 
-        <div class="float-end mt-4 mb-4">
-            <button class="btn btn-warning" id="rsa-encrypt-btn">Encrypt</button>
-            <button class="btn btn-warning" id="rsa-decrypt-btn">Decrypt</button>
+        <button class="btn btn-warning mt-4 copy-btn">Copy output to input</button>
+        <div class="float-end mt-4 mb-2">
+            <button class="btn btn-warning rsa-cipher-btn" id="encrypt-btn" data-mode="encrypt" data->
+                Cipher
+            </button>
+            <button class="btn btn-warning rsa-cipher-btn" id="decrypt-btn" data-mode="decrypt">
+                Decrypt
+            </button>
         </div>
 
-        <textarea name="output-field" class="form-control mb-4" placeholder="Output" readonly autocapitalize="on">Output goes here...</textarea>
+        <textarea name="output-field" class="form-control mb-4" placeholder="Output" readonly>Output goes here...</textarea>
 
         <div class="learn-section mb-4"></div>
     </div>

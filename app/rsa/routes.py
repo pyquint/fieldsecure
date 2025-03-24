@@ -1,5 +1,7 @@
-import sympy
-from flask import jsonify, render_template, request, session
+from re import I
+
+import sympy as sp
+from flask import json, jsonify, render_template, request, session
 
 from app.rsa import bp
 
@@ -9,13 +11,46 @@ def rsa():
     return render_template("ciphers/rsa.html")
 
 
-@bp.route("/api/rsa", methods=["POST"])
+@bp.route("/api/rsa", methods=["GET", "POST"])
 def rsa_api():
-    text = request.args.get("text", "")
+    message: str = request.args.get("message", "").strip()
+    keys: dict = json.loads(request.args.get("keys"))
+
+    mode: str = request.args.get("mode", "encrypt").strip().lower()
+
+    public_key: list[int, int] = keys["public_key"]
+    private_key: list[int, int] = keys["private_key"]
+
+    n, d = public_key
+    n, e = private_key
+
+    print(f"\n{message=}")
+    print(f"{n=}, {d=}")
+    print(f"{n=}, {e=}")
+    print(f"{mode=}")
+
+    message_to_ascii_code = [ord(c) for c in message]
+    # message_to_ascii_code_str = "".join(ord(c) for c in message_to_ascii_code)
+    print(f"{message_to_ascii_code=}")
+
+    if mode == "encrypt":
+        encrypted_ascii_codes = [pow(m, e, n) for m in message_to_ascii_code]
+    else:
+        encrypted_ascii_codes = [pow(m, d, n) for m in message_to_ascii_code]
+
+    print(f"{encrypted_ascii_codes=}")
+
+    output = "".join(chr(c) for c in encrypted_ascii_codes)
+    print(f"{output=}")
+
     response = {
-        "output": f"(RSA:{text})",
-        "steps": render_template("learn/_rsa.html", text=text),
+        "message": message,
+        "keys": keys,
+        "message_to_ascii_code": message_to_ascii_code,
+        "encrpted_ascii_codes": encrypted_ascii_codes,
+        "output": output,
     }
+
     print(f"\n{response}\n")
 
     session["rsa_response"] = response
@@ -37,25 +72,27 @@ def rsa_generate_keys():
 
     p: str | None = body_data.get("p")
     q: str | None = body_data.get("q")
+
     print(f"{p=}, {q=}\n")
 
-    errors = {}
+    errors: dict = {}
 
+    # ? {"p" : ..., "q" : ...}
     for key, val in body_data.items():
         if val:
             if not val.isdigit():
                 errors[key] = {"NaN": f"Value of ${key}$ is not a number."}
-            elif not sympy.isprime(int(val)):
+            elif not sp.isprime(int(val)):
                 errors[key] = {"NonPrime": f"${val}$ is not prime."}
 
-    print(f"\nERRORS: {errors}\n")
+    print(f"ERRORS: {errors}\n")
     if errors:
         return jsonify(errors), 400
 
-    p = int(p) if p else sympy.randprime(3, 200)
-    q = int(q) if q else sympy.randprime(3, 200)
+    p = int(p) if p else sp.randprime(3, 200)
+    q = int(q) if q else sp.randprime(3, 200)
 
-    public_key, private_key = generate_keys(p, q) if p and q else generate_keys()
+    public_key, private_key = generate_keys(p, q)
     print(f"({public_key=}, {private_key=})\n")
 
     return jsonify(
@@ -63,7 +100,7 @@ def rsa_generate_keys():
     )
 
 
-def generate_keys(p: int, q: int):
+def generate_keys(p: int, q: int) -> tuple[tuple[int, int], tuple[int, int]]:
     """
     Calculates the public and private keys from `p` and `q`.
 
@@ -74,4 +111,5 @@ def generate_keys(p: int, q: int):
     e = 65537
     d = pow(e, -1, phi)
 
+    return (n, e), (n, d)
     return (n, e), (n, d)
