@@ -65,7 +65,7 @@ $(function () {
                 contentType: "application/json",
 
                 success: function (response) {
-                    // response public key = (n, e)
+                    // response public key = (n, e)f
                     // response private key = (n, d)
 
                     $("#prime-p").val(response.p);
@@ -81,8 +81,6 @@ $(function () {
                 error: function (xhr) {
                     // console.log(xhr.responseText)
                     let errorJSON = JSON.parse(xhr.responseText);
-                    // console.log(errorJSON);
-
                     for (let key in errorJSON) {
                         for (let error in errorJSON[key]) {
                             // console.log("key msg: " + error);
@@ -90,8 +88,8 @@ $(function () {
                             $("#error-" + key).text(errorJSON[key][error]);
                         }
                     }
-                    window.MathJax.typeset();
 
+                    window.MathJax.typeset();
                     reject(true);
                 }
             });
@@ -99,7 +97,7 @@ $(function () {
     }
 
     $("#rsa-generate-keys-btn").on({
-        click: generateKeys()
+        click: generateKeys
     });
 
     $(".rsa-cipher-btn").on({

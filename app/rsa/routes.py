@@ -15,7 +15,7 @@ def rsa():
 def rsa_api():
     message: str = request.args.get("message", "").strip()
     keys: dict = json.loads(request.args.get("keys"))
-
+ 
     mode: str = request.args.get("mode", "encrypt").strip().lower()
 
     public_key: list[int, int] = keys["public_key"]
