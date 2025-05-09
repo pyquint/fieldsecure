@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+
+    {% block style %}
+    {% endblock style %}
+
+    <div class="container mt-4" id="{{ cipher_endpoint }}">
+        <div id="header">
+            {% block header %}
+            {% endblock header %}
+        </div>
+
+        <div id="desc">
+            {% block desc %}
+            {% endblock desc %}
+        </div>
+
+        <hr />
+
+        <div id="input" class="mt-3 mb-3">
+            {% block input %}
+            {% endblock input %}
+        </div>
+
+        <div id="keys" class="mt-3 mb-3">
+            {% block keys %}
+            {% endblock keys %}
+        </div>
+
+        <div id="buttons" class="mt-3 mb-3">
+            {% block buttons %}
+                {% include "components/copyBtn.html" %}
+                {% include "components/encryptDecryptBtn.html" %}
+            {% endblock buttons %}
+        </div>
+
+        <div id="output" class="mt-3 mb-3">
+            {% block output %}
+            {% endblock output %}
+        </div>
+
+        {% block learn_section %}
+            <div id="learn-section" class="mb-4"></div>
+        {% endblock learn_section %}
+    </div>
+
+    {% include "learn/__output_data.html" %}
+
+    {% block scripts %}
+    {% endblock scripts %}
+
+    <script type ="text/javascript" src="{{ url_for('static', filename='js/encipherment.js')}}" defer></script>
+
+{% endblock content %}

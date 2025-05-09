@@ -1,77 +1,58 @@
-{% extends "layout.html" %}
+{% extends "ciphers/_ciphers_template.html" %}
 
 {% block title %}
     Hill Cipher
 {% endblock title %}
 
-{% block content %}
+{% block style %}
     <style>
-        #message-field.highlight {
-            animation: highlight 1s ease-in-out;
-        }
-
-        @keyframes highlight {
-            0% {
-                background-color: LightGoldenRodYellow;
-            }
-
-            100% {
-                background-color: none;
-            }
+        input[name="key"] {
+            text-transform: uppercase;
         }
     </style>
+{% endblock style %}
 
-    <div class="container mt-4">
-        <h1 class="text-center">Hill Cipher Cryptography</h1>
+{% block header %}
+    <h1 class="text-center">Hill Cipher Cryptography</h1>
+{% endblock header %}
 
-        <p class="justify">
-            The Hill cipher is a polygraphic substitution cipher that encrypts text by matrix multiplication. It was devised by Lester Hill in 1929, making it one of the first linear algebra-based encryption systems.
-        </p>
+{% block desc %}
+    <p class="justify">
+        The Hill cipher is a polygraphic substitution cipher that encrypts text by matrix multiplication. It was devised by Lester Hill in 1929, making it one of the first linear algebra-based encryption systems.
+    </p>
 
-        <p class="justify">
-            This cipher encrypts letters as blocks rather than individually. A key matrix (a square matrix) is used to convert plaintext to ciphertext using modular arithmetic. To decrypt, the inverted key matrix is utilized.
-        </p>
+    <p class="justify">
+        This cipher encrypts letters as blocks rather than individually. A key matrix (a square matrix) is used to convert plaintext to ciphertext using modular arithmetic. To decrypt, the inverted key matrix is utilized.
+    </p>
+{% endblock desc %}
 
-        <hr />
+{% block input %}
+    {% include "components/inputTextBox.html" %}
+{% endblock input %}
 
-        <label for="message-field">Input textbox:</label>
-        <textarea name="message-field" id="message-field" class="form-control mb-4" autocapitalize="on"></textarea>
-
-        <div class="row mb-4 align-items-center">
-            <div class="col-lg-3">
-                <label for="key-field">Custom key:</label>
-            </div>
-            <div class="col-lg-3">
-                <input type="radio" id="btn-2x2" name="keysize" value="4" checked="true" />
-                <label for="btn-2x2" class="me-4">$2 \times 2$</label>
-                <input type="radio" id="btn-3x3" name="keysize" value="9" />
-                <label for="btn-3x3">$3 \times 3$</label>
-            </div>
-            <div class="col">
-                <input name="key-field" id="key-field" class="form-control" type="text" autocapitalize="on" />
-                <div id="key-error" class="invalid-feedback">Key matrix is not invertible.</div>
-            </div>
+{% block keys %}
+    <div class="row align-items-center">
+        <div class="col-lg-3">
+            <label for="key-field">Custom key:</label>
         </div>
-
-        <textarea name="output-field"
-                  class="form-control mb-4"
-                  placeholder="Output goes here..."
-                  readonly
-                  autocapitalize="on"></textarea>
-
-        <button class="btn btn-warning copy-btn">Copy output to input</button>
-        <div class="float-end">
-            <button class="btn btn-warning hill-cipher-btn" id="encrypt-btn" data-mode="encrypt" data->
-                Cipher
-            </button>
-            <button class="btn btn-warning hill-cipher-btn" id="decrypt-btn" data-mode="decrypt">
-                Decrypt
-            </button>
+        <div class="col-lg-3">
+            <input type="radio" id="btn-2x2" name="keysize" value="4" checked="true" />
+            <label for="btn-2x2" class="me-4">$2 \times 2$</label>
+            <input type="radio" id="btn-3x3" name="keysize" value="9" />
+            <label for="btn-3x3">$3 \times 3$</label>
         </div>
-
-        <div class="learn-section mb-4"></div>
+        <div class="col">
+            <input name="key" class="key-field form-control" type="text" autocapitalize="on" />
+            <div id="error-key" class="invalid-feedback">Key matrix is not invertible.</div>
+        </div>
     </div>
+{% endblock keys %}
 
+{% block output %}
+    {% include "components/outputTextBox.html" %}
+{% endblock output %}
+
+{% block script %}
     <script>
         $(function() {
             function setMaxLength() {
@@ -84,6 +65,4 @@
             $("input[name='keysize']").on("change", setMaxLength);
         });
     </script>
-
-    <script type ="text/javascript" src="{{ url_for('static', filename='js/api.js')}}" defer></script>
-{% endblock content %}
+{% endblock script %}

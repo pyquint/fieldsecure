@@ -1,0 +1,14 @@
+{% set alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Letter</th>
+            {% for letter in alphabet %}<td>{{ letter }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th>Number</th>
+            {% for i in range(0, alphabet | length) %}<td>{{ i }}</td>{% endfor %}
+        </tr>
+    </table>
+</div>

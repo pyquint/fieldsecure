@@ -1,73 +1,90 @@
-{% extends "layout.html" %}
+{% extends "ciphers/_ciphers_template.html" %}
 
 {% block title %}
     RSA
 {% endblock title %}
 
-{% block content %}
-    <div class="container mt-4">
-        <h1 class="text-center">RSA Cryptography</h1>
-        <p>
-            Disclaimer: This page is for educational purposes only. Never use the tool on this page for actual security-sensitive activities.
+{% block header %}
+    <h1 class="text-center">RSA Cryptography</h1>
+{% endblock header %}
+
+{% block desc %}
+    <p class="text-muted">
+        Disclaimer: This page is for educational purposes only. Never use the tool on this page for actual security-sensitive activities.
+        <p class="text-muted">
+            This tool expects plaintex, but RSA is designed for positive integers only. The plaintext is converted to a number.
         </p>
+    </p>
 
-        <hr />
+    <p>
+        RSA (Rivest-Shamir-Adleman) is a popular public-key cryptographic technique for
+        safe data encryption and deciphering. It relies on the mathematical difficulty
+        of factoring large prime numbers, which makes it highly secure. RSA utilizes two keys:
+    </p>
 
-        <label for="message-field">Input textbox:</label>
-        <textarea name="message-field" class="form-control mb-4"></textarea>
+    <ul>
+        <li>A public key for encryption.</li>
+        <li>A private key for decryption.</li>
+    </ul>
 
-        <h3>Custom Keys</h3>
+    <p>
+        This ensures that no matter how an attacker intercepts the encrypted message,
+        they are unable to decrypt it without the private key.
+    </p>
+{% endblock desc %}
 
-        <div class="row">
-            <h6 class="subtext">Input two large prime numbers, or leave them empty to generate ones.</h6>
-        </div>
+{% block input %}
+    {% include "components/inputTextBox.html" %}
+{% endblock input %}
 
-        <div class="row">
-            <div class="col">
-                <label for="prime-p">Prime p:</label>
-                <input type="text" id="prime-p" class="key-input form-control" />
-                <div id="error-p" class="invalid-feedback">Error.</div>
-            </div>
+{% block keys %}
+    <h3>Custom Keys</h3>
 
-            <div class="col">
-                <label for="prime-q">Prime q:</label>
-                <input type="text" id="prime-q" class="key-input form-control" />
-                <div id="error-q" class="invalid-feedback">Error.</div>
-            </div>
-
-            <div class="row">
-                <button class="btn btn-warning w-25 mt-3 ms-3" type="button" id="rsa-generate-keys-btn">
-                    Generate
-                </button>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label for="public-key">Public key $(n, e)$:</label>
-                <input name="public-key" class="form-control" readonly />
-            </div>
-
-            <div class="col">
-                <label for="private-key">Private key $(n, d)$:</label>
-                <input name="private-key" class="form-control" readonly />
-            </div>
-        </div>
-
-        <button class="btn btn-warning mt-4 copy-btn">Copy output to input</button>
-        <div class="float-end mt-4 mb-2">
-            <button class="btn btn-warning rsa-cipher-btn" id="encrypt-btn" data-mode="encrypt" data->
-                Cipher
-            </button>
-            <button class="btn btn-warning rsa-cipher-btn" id="decrypt-btn" data-mode="decrypt">
-                Decrypt
-            </button>
-        </div>
-
-        <textarea name="output-field" class="form-control mb-4" placeholder="Output" readonly>Output goes here...</textarea>
-
-        <div class="learn-section mb-4"></div>
+    <div class="row">
+        <h6 class="subtext">
+            Input two large prime numbers $p$ and $q$ and encryption exponent $e$, or leave them empty to generate values for you.
+        </h6>
     </div>
 
-    <script type ="text/javascript" src="{{ url_for('static', filename='js/api.js')}}" defer></script>
-{% endblock content %}
+    <div class="row">
+        <div class="col">
+            <label for="p">Prime $p$:</label>
+            <input name="p" type="text" id="p" class="key-field form-control" />
+            <div id="error-p" class="invalid-feedback">Error.</div>
+        </div>
+
+        <div class="col">
+            <label for="q">Prime $q$:</label>
+            <input name="q" type="text" id="q" class="key-field form-control" />
+            <div id="error-q" class="invalid-feedback">Error.</div>
+        </div>
+
+        <div class="col">
+            <label for="e">Exponent $e$:</label>
+            <input name="e" type="text" id="e" class="key-field form-control" />
+            <div id="error-e" class="invalid-feedback">Error.</div>
+        </div>
+
+        <div class="row">
+            <button class="btn btn-warning w-25 mt-3 ms-3" type="button" id="rsa-generate-keys-btn">
+                Generate
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="public-key">Public key $(n, e)$:</label>
+            <input name="public-key" class="key-field form-control" readonly />
+        </div>
+
+        <div class="col">
+            <label for="private-key">Private key $(n, d)$:</label>
+            <input name="private-key" class="key-field form-control" readonly />
+        </div>
+    </div>
+{% endblock keys %}
+
+{% block output %}
+    {% include "components/outputTextBox.html" %}
+{% endblock output %}

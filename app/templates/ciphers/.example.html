@@ -1,0 +1,31 @@
+{% extends "ciphers/_ciphers_template.html" %}
+
+{% block title %}
+    Title
+{% endblock title %}
+
+{% block header %}
+    <h1 class="text-center">Header</h1>
+{% endblock header %}
+
+{% block desc %}
+    <p class="justify">Description</p>
+{% endblock desc %}
+
+{% block input %}
+    {% include "components/inputTextBox.html" %}
+{% endblock input %}
+
+{% block keys %}
+    <input type="number" />
+</input />
+{% endblock keys %}
+
+{% block btns %}
+    {% include "components/copyBtn.html" %}
+    {% include "components/encryptDecryptBtns.html" %}
+{% endblock btns %}
+
+{% block output %}
+    {% include "components/outputTextBox.html" %}
+{% endblock output %}

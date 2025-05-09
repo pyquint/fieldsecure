@@ -1,77 +1,112 @@
-<h1>What is RSA?</h1>
-
-<p>
-    RSA (Rivest-Shamir-Adleman) is a popular public-key cryptographic technique for
-    safe data encryption and deciphering. It relies on the mathematical difficulty
-    of factoring large prime numbers, which makes it highly secure. RSA utilizes two keys:
-</p>
-
-<ul>
-    <li>A public key for encryption.</li>
-    <li>A private key for decryption.</li>
-</ul>
-
-<p>
-    Thus, ensures that no matter how an attacker intercepts the encrypted message,
-    they are unable to decrypt it without the private key.
-</p>
-
 <h2>Key Generation</h2>
 
 <h3>Step 1:</h3>
-<p>Compute $n = p \times q$. $n$ is used as the modulus for both the public and private keys.</p>
-<div class="step">$$n = p \times q$$</div>
+<p>
+    Compute $p \times    q$. This value, $n$, is used as the modulus for both the public and private keys.
+</p>
+<div class="step">
+    $$ p = {{ p }},\: q = {{ q }} $$
+
+    $$
+    \begin{align*}
+    n &= p \times q \\
+    &= {{ p }} \times {{ q }} \\
+    &= {{ n }} \\
+    \end{align*}
+    $$
+</div>
 
 <h3>Step 2:</h3>
 <p>Compute the totient function,  $\phi(n) = (p - 1) \times (q - 1)$.</p>
-<div class="step">$$\phi(n) = (p - 1) \times (q - 1)$$</div>
+<div class="step">
+    $$
+    \begin{align*}
+    \phi(n) &= (p - 1) \times (q - 1) \\
+    &= ({{ p }} - 1) \times ({{ q }} - 1) \\
+    &= ({{ p - 1 }}) \times ({{ q - 1 }} ) \\
+    &= {{ phi }} \\
+    \end{align*}
+    $$
+</div>
 
 <h3>Step 3:</h3>
 <p>
     Public Key $e$ : Choose an integer $e$ such that $1 < e < \phi(n)$ and $e$ is coprime with $\phi(n)$.
-</p>
-<div class="step">
     <p>
-        Common choice are:
-        <br />
-        $17$ - small, fast for encryption
-        <br />
-        $65537$ - larger but still efficient (most common today)
+        Common choice are: $17$ (for small, fast for encryption), and $65537$ (larger but still efficient, and is the most commonly used currently).
     </p>
-</div>
+</p>
+<div class="step">$$ e = {{ e }} $$</div>
 
 <h3>Step 4:</h3>
 <p>
-    Compute $d$ as the modular multiplicative inverse of $e \mod{\phi(n)}$:
+    Compute $d$ as the modular multiplicative inverse of $e \pmod{\phi(n)}$:
     <br />
-    $d \equiv e^{-1} \mod{\phi(n)}$ meaning $(e \times d)\mod{\phi(n)} = 1$
+    $$ d \equiv e^{-1} \pmod{\phi(n)} $$
+    meaning $(e \times d)\pmod{\phi(n)} = 1$.
 </p>
-<div class="step">if $e = 17$: $$d=2753$$ since $$ 17 \times 2753 \mod{3120} = 1 $$</div>
-
-<h3>Step 5:</h3>
-<p>Display keys.</p>
 <div class="step">
-    <p>Public Key: $(e, n)$</p>
-    <p>Private Key: $(d, n)$</p>
+    $$\displaylines{
+    \text{if}\:e = {{ e }}\text{, then}\: d = {{ d }}, \\
+    \text{since}\:{{ e }} \times {{ d }} \pmod{ {{ phi }} } = 1
+    }$$
 </div>
 
-<h2>Encryption</h2>
+<h3>Step 5:</h3>
+<p>Now we have calculated the values for the public and private keys.</p>
+<div class="step">
+    $$
+    \begin{align*}
+    \text{public key} &= ({{ e }}, {{ n }}) \\
+    \text{private key} &= ({{ d }}, {{ n }})
+    \end{align*}
+    $$
+</div>
+
+<h2>Encipher</h2>
 
 <h3>Step 1:</h3>
-<p>Use $M \equiv C^{d} \mod{n}$ to recover the plaintext.</p>
+<p>Convert the plaintext into an array of positive integers.</p>
 <div class="step">
-    <p>Private Key: $(d, n)$</p>
-    <p>
-        $$ 2202 = 2202^{2753} \mod{3233} = 7 (H) $$
-        $$ 1630 = 1630^{2753} \mod{3233} = 4 (E) $$
-        $$ 2040 = 2040^{2753} \mod{3233} = 11 (L) $$
-        $$ 2040 = 2040^{2753} \mod{3233} = 11 (L) $$
-        $$ 2186 = 2186^{2753} \mod{3233} = 14 (O) $$
-    </p>
+    $${{ message | tex_escape }}$$
+    $$
+    \begin{align*}
+
+    {% for c, conv in zip(message, message_to_ascii_code) %}
+        {{ c }} &\rightarrow {{ conv }} \\
+    {% endfor %}
+    \end{align*}
+    $$
 </div>
 
 <h3>Step 2:</h3>
-<p>Output decrypted message.</p>
+<p>
+    Use the encryption function $c(m) = m^{ {{ e }} } \pmod{ {{ n }} }$ to encrypt the converted plaintext.
+</p>
 <div class="step">
-    <p>$HELLO$</p>
+    $$
+    \begin{align*}
+    {% for m, c in zip(message_to_ascii_code,encrypted_ascii_codes) %}
+        {{ m }}^{ {{ e }} } \pmod{ {{ n }} } &= {{ c }} \\
+    {% endfor %}
+    \end{align*}
+    $$
 </div>
+
+<h3>Step 3:</h3>
+<p>Output decrypted message by mapping the values into ASCII or Unicode.</p>
+<div class="step">
+    $$
+    \begin{align*}
+    {% for ascii, out in zip(encrypted_ascii_codes, output) %}
+        {{ ascii }} &\rightarrow {{ out }} \\
+    {% endfor %}
+    \end{align*}
+    $$
+</div>
+
+<h3>Step 4:</h3>
+<p>Combine the characters.</p>
+<div class="step">$$ \text{output} = \: {{ output | tex_escape }} $$</div>
+
+{% include "learn/__output_data.html" %}
