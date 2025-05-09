@@ -33,7 +33,7 @@
 <p>
     Public Key $e$ : Choose an integer $e$ such that $1 < e < \phi(n)$ and $e$ is coprime with $\phi(n)$.
     <p>
-        Common choice are: $17$ (for small, fast for encryption), and $65537$ (larger but still efficient, and is the most commonly used currently).
+        Common choice are: $17$ (small and fast for encryption), and $65537$ (larger but still efficient, and is currently the most commonly used value for $e$).
     </p>
 </p>
 <div class="step">$$ e = {{ e }} $$</div>
@@ -43,12 +43,12 @@
     Compute $d$ as the modular multiplicative inverse of $e \pmod{\phi(n)}$:
     <br />
     $$ d \equiv e^{-1} \pmod{\phi(n)} $$
-    meaning $(e \times d)\pmod{\phi(n)} = 1$.
+    meaning the product of $e$ and $d$ $\mod{\phi(n)}$ must be equal to $1$.
 </p>
 <div class="step">
     $$\displaylines{
     \text{if}\:e = {{ e }}\text{, then}\: d = {{ d }}, \\
-    \text{since}\:{{ e }} \times {{ d }} \pmod{ {{ phi }} } = 1
+    \text{since}\:\:{{ e }} \times {{ d }} \pmod{ {{ phi }} } = 1
     }$$
 </div>
 
@@ -66,7 +66,7 @@
 <h2>Encipher</h2>
 
 <h3>Step 1:</h3>
-<p>Convert the plaintext into an array of positive integers.</p>
+<p>Convert the plaintext into an array of positive integers using ASCII or Unicode.</p>
 <div class="step">
     $${{ message | tex_escape }}$$
     $$
@@ -96,17 +96,14 @@
 <h3>Step 3:</h3>
 <p>Output decrypted message by mapping the values into ASCII or Unicode.</p>
 <div class="step">
-    $$
-    \begin{align*}
     {% for ascii, out in zip(encrypted_ascii_codes, output) %}
-        {{ ascii }} &\rightarrow {{ out }} \\
+        $ {{ ascii }} \rightarrow $ {{ out }}
+        <br />
     {% endfor %}
-    \end{align*}
-    $$
 </div>
 
 <h3>Step 4:</h3>
 <p>Combine the characters.</p>
-<div class="step">$$ \text{output} = \: {{ output | tex_escape }} $$</div>
+<div class="step">{{ output }}</div>
 
 {% include "learn/__output_data.html" %}
