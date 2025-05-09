@@ -27,26 +27,16 @@
 <p>
     Convert each letter in the message. For each letter in the input message, replace it with its corresponding letter from the reversed alphabet.
 </p>
-<p>For plaintext "{{ message }}":</p>
 
 <div class="step">
+    $$\text{For plaintext "{{ message | tex_escape }}":}$$
+    $$$$
     {% for c, r in zip(message, output) %}
         {% if c is lower or c is upper %}$$ {{ c }} \rightarrow {{ r }}$${% endif %}
     {% endfor %}
 </div>
 
 <h3>Step 3:</h3>
-<p>Merge the mapped characters to get the encrypted message.</p>
+<p>Merge the mapped letters, keeping special characters intact, to get the encrypted message.</p>
 
 <div class="step">$${{ output | tex_escape }}$$</div>
-
-<h2>Notes</h2>
-<h3>#1:</h3>
-<p>Atbash ignores non-alphabetic characters.</p>
-
-<h3>#2:</h3>
-<p>
-    Decryption uses the same process as encryption. Since Atbash is a simple reversal cipher, applying the same steps to an encrypted message will return the original text.
-</p>
-
-{% include "learn/__output_data.html" %}

@@ -54,7 +54,7 @@ def hill_cipher() -> Response:
 
     # convert the letters in the chunks into alphabet indices
     msg_num_chunks: list[list[int]] = [
-        [mu.index_c(c) for c in chunk] for chunk in msg_chunks
+        [mu.alpha_id(c) for c in chunk] for chunk in msg_chunks
     ]
     print(f"{msg_num_chunks=}")
 

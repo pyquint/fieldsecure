@@ -1,8 +1,10 @@
 import math
 from collections.abc import Iterable
+from string import ascii_lowercase
 from typing import Tuple
 
 import numpy as np
+import sympy as sp
 
 from app.types import ColumnVector, Matrix, Vector
 
@@ -15,15 +17,16 @@ def is_square_of(k: int, n: int) -> bool:
     return math.sqrt(n) == k
 
 
-def index_c(c: str) -> int:
+def alpha_id(c: str) -> int:
     """
-    Returns the index of character c from the alphabet.
+    Returns the index of character c from the English alphabet.
     """
-    offset = 65 if c.isupper() else 97 if c.islower() else 0
-    return (ord(c) - offset) % 26
+    if not c.isalpha():
+        raise ValueError(f"{c} is not a letter in the English alphabet.")
+    return ascii_lowercase.index(c.lower())
 
 
-def alpha_i(i: int) -> str:
+def id_alpha(i: int) -> str:
     """
     Returns the character in the alphabet at index i.
     """
@@ -36,7 +39,7 @@ def square_matrix_from_str(string: str) -> np.ndarray[np.int_]:
         print("The key must be letters and n^2 characters long")
     k = math.isqrt(length)
     return np.array(
-        [[index_c(c) for c in string[x : x + k]] for x in range(0, len(string), k)]
+        [[alpha_id(c) for c in string[x : x + k]] for x in range(0, len(string), k)]
     )
 
 
@@ -57,7 +60,7 @@ def row_vector(lst: Iterable) -> Vector:
 
 
 def str_from_ndarray(array: np.ndarray) -> str:
-    return "".join("".join(alpha_i(i) for i in row) for row in array)
+    return "".join("".join(id_alpha(i) for i in row) for row in array)
 
 
 def np_to_latex(matrix: np.ndarray, environment="pmatrix", formatter=str) -> str:
@@ -153,3 +156,30 @@ def split_to_chunks(text: str, chunk_len: int, placeholder: str = "X") -> list[s
         chunks.append(chunk)
 
     return chunks
+
+
+def generate_unique_primes(
+    n: int = 2, minimum: int = 2, maximum: int = 200
+) -> set[int]:
+    """
+    Generate a set of primes.
+
+    :param n: desired number of primes
+    :type n: int
+    :param minimum: Minimum lookup range, default 2
+    :type minimum: int
+    :param maximum: Maximum loopup range, default 200
+    :type maximum: int
+    :return: Unique set of primes
+    :rtype: set[int]
+    """
+
+    primes = set()
+
+    # ensures the loop runs in a limited number of iterations
+    for i in range(maximum - minimum):
+        primes.add(sp.randprime(minimum, maximum))
+        if len(primes) == n:
+            return primes
+    else:
+        raise Exception("Not enough primes within range.")

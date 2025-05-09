@@ -4,6 +4,7 @@ import sympy as sp
 from flask import json, jsonify, render_template, request
 
 from app.ciphers import bp
+from app.mathutils import generate_unique_primes
 
 
 @bp.route("/rsa", methods=["GET"])
@@ -97,8 +98,10 @@ def rsa_generate_keys():
     if errors:
         return jsonify(errors), 400
 
-    p = int(p) if p else sp.randprime(3, 200)
-    q = int(q) if q else sp.randprime(3, 200)
+    if p and q:
+        p, q = int(p), int(q)
+    else:
+        p, q = generate_unique_primes(2)
 
     if e:
         try:
