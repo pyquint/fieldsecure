@@ -1,0 +1,50 @@
+{
+	// Place your fieldsecure workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+	// Placeholders with the same ids are connected.
+	"Ciphers template": {
+		"scope": "html,jinja-html",
+		"prefix": "cipher-template",
+		"body": [
+			"{% extends \"ciphers/_ciphers_template.html\" %}\n",
+			"{% block title %}",
+			"\t${1:Title}",
+			"{% endblock title %}\n",
+			"{% block header %}",
+			"\t<h1 class=\"text-center\">",
+			"\t\t${2:Header}",
+			"\t</h1>",
+			"{% endblock header %}\n",
+			"{% block desc %}",
+			"\t<p class=\"justify\">",
+			"\t\t${3:Description}",
+			"\t</p>",
+			"{% endblock desc %}\n",
+			"{% block input %}",
+			"\t${4:{% include \"components/inputTextBox.html\" %}}",
+			"{% endblock input %}\n",
+			"{% block keys %}",
+			"\t${5:<input type=\"number\"></input>}",
+			"{% endblock keys %}\n",
+			"{% block btns %}",
+			"\t${6:{% include \"components/copyBtn.html\" %}}",
+			"\t${7:{% include \"components/encryptDecryptBtns.html\" %}}",
+			"{% endblock btns %}\n",
+			"{% block output %}",
+			"\t${8:{% include \"components/outputTextBox.html\" %}}",
+			"{% endblock output %}",
+		],
+		"description": "Initialize ciphers page template"
+	},
+	"Include UI component": {
+		"scope": "html,jinja-html",
+		"prefix": "component",
+		"body": [
+			"{% include \"components/$1.html\" %}",
+		],
+		"description": "Add component to the current page"
+	}
+}
