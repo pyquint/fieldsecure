@@ -19,8 +19,9 @@
         <h1 class="display-5 fw-bold text-body-emphasis">FieldSecure</h1>
 
         <div class="mt-5">
-            <a class="btn btn-warning text-white" href="{{ url_for('rsa.rsa') }}">RSA</a>
-            <a class="btn btn-warning text-white" href="{{ url_for('hill_cipher.hill_cipher') }}">Hill Cipher</a>
+            <a class="btn btn-warning text-white" href="{{ url_for('ciphers.rsa_view') }}">RSA</a>
+            <a class="btn btn-warning text-white" href="{{ url_for('ciphers.hill_cipher_view') }}">Hill Cipher</a>
+            <a class="btn btn-warning text-white" href="{{ url_for('ciphers.atbash_cipher_view') }}">Atbash Cipher</a>
         </div>
     </div>
 {% endblock content %}

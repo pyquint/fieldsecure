@@ -1,0 +1,52 @@
+<h2>Encryption and Decryption</h2>
+<p>
+    Since Atbash is a simple substitution cipher, the encryption and decryption processes are identical.
+</p>
+
+<h3>Step 1:</h3>
+<p>
+    Define the alphabet mapping. Each letter in the alphabet is replaced with its reverse counterpart.
+</p>
+
+{% set alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Plaintext</th>
+            {% for letter in alphabet %}<td>{{ letter }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th>Ciphertext</th>
+            {% for letter in alphabet | reverse %}<td>{{ letter }}</td>{% endfor %}
+        </tr>
+    </table>
+</div>
+
+<h3>Step 2:</h3>
+<p>
+    Convert each letter in the message. For each letter in the input message, replace it with its corresponding letter from the reversed alphabet.
+</p>
+<p>For plaintext "{{ message }}":</p>
+
+<div class="step">
+    {% for c, r in zip(message, output) %}
+        {% if c is lower or c is upper %}$$ {{ c }} \rightarrow {{ r }}$${% endif %}
+    {% endfor %}
+</div>
+
+<h3>Step 3:</h3>
+<p>Merge the mapped characters to get the encrypted message.</p>
+
+<div class="step">$${{ output | tex_escape }}$$</div>
+
+<h2>Notes</h2>
+<h3>#1:</h3>
+<p>Atbash ignores non-alphabetic characters.</p>
+
+<h3>#2:</h3>
+<p>
+    Decryption uses the same process as encryption. Since Atbash is a simple reversal cipher, applying the same steps to an encrypted message will return the original text.
+</p>
+
+{% include "learn/__output_data.html" %}

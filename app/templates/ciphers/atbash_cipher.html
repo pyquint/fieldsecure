@@ -1,0 +1,30 @@
+{% extends "ciphers/_ciphers_template.html" %}
+
+{% block title %}
+    Atbash
+{% endblock title %}
+
+{% block header %}
+    <h1 class="text-center">Atbash Cipher</h1>
+{% endblock header %}
+
+{% block desc %}
+    <p class="justify">
+        The Atbash Cipher is a simple monoalphabetic substitution cipher that replaces each letter with its reverse counterpart in the alphabet.
+        It is one of the oldest known ciphers, dating back to ancient Hebrew encryption techniques.
+        Unlike more complex encryption methods, Atbash does not require a key — encryption and decryption follow the same process.
+    </p>
+{% endblock desc %}
+
+{% block input %}
+    {% include "components/inputTextBox.html" %}
+{% endblock input %}
+
+{% block buttons %}
+    {% include "components/copyBtn.html" %}
+    {% include "components/cipherBtn.html" %}
+{% endblock buttons %}
+
+{% block output %}
+    {% include "components/outputTextBox.html" %}
+{% endblock output %}
