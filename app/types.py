@@ -10,5 +10,4 @@ ColumnVector = np.ndarray[Tuple[Tuple[int]], np.dtype[T]]
 Matrix = np.ndarray[Tuple[int, int], np.dtype[T]]
 Tensor = np.ndarray[Tuple[int, ...], np.dtype[T]]
 
-
 # https://stackoverflow.com/a/75499982

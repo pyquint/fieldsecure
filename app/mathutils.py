@@ -19,7 +19,8 @@ def index_c(c: str) -> int:
     """
     Returns the index of character c from the alphabet.
     """
-    return (ord(c) - 65) % 26
+    offset = 65 if c.isupper() else 97 if c.islower() else 0
+    return (ord(c) - offset) % 26
 
 
 def alpha_i(i: int) -> str:
@@ -86,7 +87,7 @@ def inversible_key(k):
 
 def is_invertible(sq_matrix: np.ndarray) -> bool:
     try:
-        inv: Matrix[np.float64] = np.linalg.inv(sq_matrix)
+        np.linalg.inv(sq_matrix)
         return True
     except np.linalg.LinAlgError:
         return False
@@ -138,3 +139,17 @@ def modinv(a: int, mod: int) -> int:
     if g != 1:
         raise Exception("gcd(a, b) != 1")
     return x % mod
+
+
+def split_to_chunks(text: str, chunk_len: int, placeholder: str = "X") -> list[str]:
+    chunks = []
+
+    for i in range(0, len(text), chunk_len):
+        chunk = text[i : i + chunk_len]
+
+        if len(chunk) < chunk_len:
+            missing_chars = chunk_len - len(chunk)
+            chunk += placeholder * missing_chars
+        chunks.append(chunk)
+
+    return chunks

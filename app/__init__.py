@@ -11,21 +11,24 @@ def create_app(config_class=Config):
         app.wsgi_app, {"app": ("static/sass", "static/css", "/static/css")}
     )
 
-    print("\ncreate_app\n")
-
-    from app.hill_cipher import bp as hill_cipher_bp
-
-    app.register_blueprint(hill_cipher_bp)
-
-    from app.rsa import bp as rsa_cipher_bp
-
-    app.register_blueprint(rsa_cipher_bp)
-
     from app.main import bp as main_bp
 
     app.register_blueprint(main_bp)
 
+    from app.ciphers import bp as ciphers_bp
+
+    app.register_blueprint(ciphers_bp, url_prefix="/ciphers")
+
+    from app.api import bp as api_bp
+
+    app.register_blueprint(api_bp, url_prefix="/api/v1")
+
+    from app.filters import bp as filters_bp
+
+    app.register_blueprint(filters_bp)
+
+    # might move to dedicated file
+    # does not work: https://stackoverflow.com/a/5223810
     app.jinja_env.globals.update(zip=zip)
-    app.jinja_env.globals.update(len=len)
 
     return app
