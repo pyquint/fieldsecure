@@ -135,7 +135,7 @@ h2 {
 }
 
 .learn-section {
-    margin-top: 5rem;
+    margin-top: 2rem;
     clear: both;
 }
 
@@ -326,11 +326,6 @@ button:hover {
 //     border-radius: 5px;
 // }
 
-// textarea[name="message-field"],
-// input[name="key-field"] {
-//     text-transform: uppercase;
-// }
-
 .justify {
     text-align: justify;
 }
@@ -350,4 +345,18 @@ hr {
 .form-control {
     font-family: $body-font;
     font-size: $body-font-size;
+}
+
+.message-field.highlight {
+    animation: highlight 1s ease-in-out;
+}
+
+@keyframes highlight {
+    0% {
+        background-color: LightGoldenRodYellow;
+    }
+
+    100% {
+        background-color: none;
+    }
 }

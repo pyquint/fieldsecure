@@ -127,7 +127,7 @@ h2 {
   margin-bottom: 1.2rem; }
 
 .learn-section {
-  margin-top: 5rem;
+  margin-top: 2rem;
   clear: both; }
 
 button {
@@ -191,5 +191,14 @@ hr {
 .form-control {
   font-family: "Inter";
   font-size: 1.4rem; }
+
+.message-field.highlight {
+  animation: highlight 1s ease-in-out; }
+
+@keyframes highlight {
+  0% {
+    background-color: LightGoldenRodYellow; }
+  100% {
+    background-color: none; } }
 
 /*# sourceMappingURL=styles.scss.css.map */
