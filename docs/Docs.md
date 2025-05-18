@@ -18,7 +18,9 @@ In Visual Studio Code, I have defined a snippet such that one only need to selec
     - `script`
 
 ## Components
-The blocks mentioned above are not wrapped in HTML tags. The developer must create these elemenets, which allows them flexibility in designing and implementing the ciphers page to their likings and needs.
+The blocks mentioned above are wrapped in simple non-styled divs with an id the same as the block name for semantic purposes only. The developer must create and style the elemenets themselves, which allows them flexibility in designing and implementing the ciphers page to their likings and needs.
+
+For convenience, there are pre-defined encipherment components located in the `components` subdirectory. To use these components, add an `include` statement in the HTML document.
 
 e.g. `components/cipherBtn.html`:
 ```html
@@ -32,15 +34,15 @@ To use:
 {% include "components/cipherBtn.html" %}
 ```
 
-A VSCode snippet is available to easily add these statements, just type `component` and select "Include UI component".
+A VSCode snippet is available to easily add these components, just type `component` and select "Include UI component".
 
 ## Enciphering
 ### Functional Components
-The enciphering button, whether to encrypt, decrypt, or simply cipher, must have the `cipher-btn` class.
+The enciphering button, whether to `encrypt`, `decrypt`, or simply `cipher` (should the encryption is the same as decryption), must have the  `{{ encipher }}-btn` id.
 
-For convenience, there are pre-defined encipherment components located in the `components` subdirectory. To use these components, add an `include` statement in the HTML document.
+For encryption and decryption must have `data-mode` assigned to either `"encrypt"` or `"decrypt"`.
 
-Should the cipher necessitates unconventional input or textbox element, if possible copy the important class or id from the pre-defined components.
+Should the cipher necessitates unconventional input, textbox, or button element, copy the important attributes above or from the pre-defined [Components](Docs.md#Components).
 
 ### Keys
 Keys for the cipher, if present, must have an accompanying `.invalid-feedback` div, with an id name that follows the format `error-{{ name }}`, where `name` is input box's `name` attribute.
@@ -73,13 +75,13 @@ $(function () {
 });
 ```
 
-`{{ cipher }}` must match with the value assigned to the `cipher` argument defined when rendering the current cipher view:
+`{{ cipher_endpoint }}` must match with the value assigned to the `cipher_endpoint` argument defined when rendering the current cipher view:
 
 ```python
 return render_template("ciphers/atbash_cipher.html", cipher_endpoint="atbash-cipher")
 ```
 
-(The whole cipher subtemplate is wrapped around a `#{{ cipher_endpoint }} div.)
+(The whole cipher subtemplate is wrapped around a `#{{ cipher_endpoint }}` div.)
 
 
 ## Displaying Output

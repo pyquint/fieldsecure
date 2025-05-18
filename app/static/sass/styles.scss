@@ -1,6 +1,5 @@
 $body-font: 'Inter';
 $body-font-size: 1.4rem;
-$hr-margin: 2.5rem;
 
 input[type='number'] {
     -moz-appearance: textfield;
@@ -19,8 +18,8 @@ input[type='number'] {
     h#{$index} {
         font-family: 'Orbitron';
         font-weight: 800;
-        margin-top: 16px;
-        margin-bottom: 16px;
+        // margin-top: 16px;
+        // margin-bottom: 16px;
     }
 }
 
@@ -129,10 +128,10 @@ h3 {
     font-size: 32px;
 }
 
-h1,
-h2 {
-    margin-bottom: 1.2rem;
-}
+// h1,
+// h2 {
+//     margin-bottom: 1.2rem;
+// }
 
 .learn-section {
     margin-top: 2rem;
@@ -247,37 +246,6 @@ button:hover {
     background-color: #555;
 }
 
-// /* Styles for key input fields */
-// .key-input {
-//     border: 1px solid #333;
-//     outline: none;
-//     font-size: 14px;
-//     padding: 8px;
-//     background: transparent;
-//     width: 45%;
-//     border-radius: 5px;
-// }
-
-// /* Container for key inputs */
-// .key-container {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     gap: 10px;
-// }
-
-// /* Styles for key sections (Custom, Program Generated)*/
-// .key-section {
-//     border: none;
-//     padding: 10px;
-//     background-color: transparent;
-//     max-width: 400px;
-//     width: 100%;
-//     margin: 10px auto;
-//     text-align: center;
-// }
-
-/* Remove borders for container holding encrypt/decrypt buttons */
 .no-border {
     border: none;
     padding: 10px;
@@ -288,14 +256,13 @@ button:hover {
     text-align: center;
 }
 
-/* encrypt/decrypt buttons container */
 .button-container {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
-/* Style for generate, encrypt/decrypt buttons */
+
 .generate-button {
     padding: 0.5em;
     background-color: #0274F9;
@@ -311,21 +278,6 @@ button:hover {
     background-color: #555;
 }
 
-// /* Adjust spacing for subtext */
-// .subtext {
-//     margin-top: -10px;
-//     font-weight: normal;
-// }
-
-// .output-box {
-//     border: 1px solid #ccc;
-//     padding: 10px;
-//     margin: 10px 0;
-//     background-color: #f9f9f9;
-//     min-height: 30px;
-//     border-radius: 5px;
-// }
-
 .justify {
     text-align: justify;
 }
@@ -335,11 +287,6 @@ table th,
 td {
     border: 1px solid black;
     font-size: $body-font-size;
-}
-
-hr {
-    margin-top: $hr-margin;
-    margin-bottom: $hr-margin;
 }
 
 .form-control {

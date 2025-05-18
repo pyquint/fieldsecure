@@ -1,0 +1,59 @@
+<h2>Encryption</h2>
+<p>Caesar Cipher is simply shifting certain number in the alphabet.</p>
+
+<h3>Step 1:</h3>
+<p>
+    The input text is segregated into each letter to be able to shift each letter in the alphabet.
+    The number of shift determines how many times the number would shift in the alphabet.
+</p>
+
+{% set alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Plaintext</th>
+            {% for letter in alphabet %}<td>{{ letter }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th>Shift</th>
+            {% for letter in shifted_alphabet %}<td>{{ letter }}</td>{% endfor %}
+        </tr>
+    </table>
+</div>
+
+<div class="step">
+    $$\text{For plaintext "{{ message | tex_escape }}":}$$
+    {% for c, r in zip(message, output) %}
+        {% if c is lower or c is upper %}$$ {{ c }} \rightarrow {{ r }}$${% endif %}
+    {% endfor %}
+</div>
+
+<h3>Step 2:</h3>
+<p>After each letter is shifted, this will be the cipher text for it to be decrypted.</p>
+<div class="step">$${{ output | tex_escape }}$$</div>
+
+<h2>Decryption</h2>
+<p>
+    After encrypting, the given ciphertext will then be used to decrypt the message, shifting back again.
+</p>
+
+<h3>Step 3:</h3>
+<p>
+    To decrypt, just shift by the same amount backward,
+    or in the same direction but with the negative value of the shift number.
+</p>
+<div class="step">
+    {% for c, r in zip(message, output) %}
+        {% if c is lower or c is upper %}$$ {{ r }} \rightarrow {{ c }}$${% endif %}
+    {% endfor %}
+</div>
+
+<h3>Step 4:</h3>
+<p>
+    The decryption works vice-versa, making it very simple to understand.
+    The output is the same as the previously inputted text.
+</p>
+<div class="step">$${{ message | tex_escape }}$$</div>
+
+{% include "learn/__output_data.html" %}

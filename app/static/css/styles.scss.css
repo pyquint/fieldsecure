@@ -8,39 +8,27 @@ input[type='number'] {
 
 h1 {
   font-family: 'Orbitron';
-  font-weight: 800;
-  margin-top: 16px;
-  margin-bottom: 16px; }
+  font-weight: 800; }
 
 h2 {
   font-family: 'Orbitron';
-  font-weight: 800;
-  margin-top: 16px;
-  margin-bottom: 16px; }
+  font-weight: 800; }
 
 h3 {
   font-family: 'Orbitron';
-  font-weight: 800;
-  margin-top: 16px;
-  margin-bottom: 16px; }
+  font-weight: 800; }
 
 h4 {
   font-family: 'Orbitron';
-  font-weight: 800;
-  margin-top: 16px;
-  margin-bottom: 16px; }
+  font-weight: 800; }
 
 h5 {
   font-family: 'Orbitron';
-  font-weight: 800;
-  margin-top: 16px;
-  margin-bottom: 16px; }
+  font-weight: 800; }
 
 h6 {
   font-family: 'Orbitron';
-  font-weight: 800;
-  margin-top: 16px;
-  margin-bottom: 16px; }
+  font-weight: 800; }
 
 @media (min-width: 1200px) {
   .container {
@@ -122,10 +110,6 @@ h2 {
 h3 {
   font-size: 32px; }
 
-h1,
-h2 {
-  margin-bottom: 1.2rem; }
-
 .learn-section {
   margin-top: 2rem;
   clear: both; }
@@ -146,7 +130,6 @@ button {
 button:hover {
   background-color: #555; }
 
-/* Remove borders for container holding encrypt/decrypt buttons */
 .no-border {
   border: none;
   padding: 10px;
@@ -156,13 +139,11 @@ button:hover {
   margin: 10px auto;
   text-align: center; }
 
-/* encrypt/decrypt buttons container */
 .button-container {
   display: flex;
   justify-content: flex-end;
   gap: 10px; }
 
-/* Style for generate, encrypt/decrypt buttons */
 .generate-button {
   padding: 0.5em;
   background-color: #0274F9;
@@ -183,10 +164,6 @@ table th,
 td {
   border: 1px solid black;
   font-size: 1.4rem; }
-
-hr {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem; }
 
 .form-control {
   font-family: "Inter";

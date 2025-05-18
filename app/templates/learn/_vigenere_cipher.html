@@ -1,0 +1,49 @@
+<h2>Encryption</h2>
+
+<h3>Step 1:</h3>
+<p>Clean the plaintext. Remove spaces and punctuation. Convert to uppercase.</p>
+
+<div class="step">
+    $$\text{ {{ message | tex_escape }} }$$
+    $$\downarrow$$
+    $${{ cleaned_message }}$$
+</div>
+
+<h3>Step 2:</h3>
+<p>
+    Repeat the yey to match Length. The plaintext has {{ message | length }} letters, so repeat the key "{{ original_key }}" (7 letters) until it fits.
+</p>
+<div class="step">$${{ key }}$$</div>
+
+<h3>Step 3:</h3>
+<p>Convert the letters into numbers.</p>
+{% include "components/alphabetIndexTable.html" %}
+<div class="step">
+    $${{ cleaned_message |join }}$$
+    $$\downarrow$$
+    $${{ message_to_int | join }}$$
+    $$$$
+    $${{ key |join }}$$
+    $$\downarrow$$
+    $${{ key_to_int | join }}$$
+</div>
+
+<h3>Step 4:</h3>
+<p>Add the plaintext and key $\mod 26$.</p>
+<p>$C_{i} = (P_{i} + K_{i}) \pmod{26}$</p>
+<div class="step">$${{ key }}$$</div>
+
+<h3>Step 5:</h3>
+<p>Combine the letters to retrieve the ciphertext.</p>
+<div class="step">$${{ output }}$$</div>
+
+<h2>Decryption</h2>
+<h3>Step 1:</h3>
+<p>
+    To decrypt, simply subtract the key and ciphertext stated at Step 4, effectively reversing the encryption.
+</p>
+<div class="step">
+    <p>$C_{i} = (P_{i} - K_{i}) \pmod{26}$</p>
+</div>
+
+{% include "learn/__output_data.html" %}

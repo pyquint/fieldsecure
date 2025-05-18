@@ -1,0 +1,43 @@
+{% extends "ciphers/_ciphers_template.html" %}
+
+{% block title %}
+    Caesar Cipher
+{% endblock title %}
+
+{% block header %}
+    <h1 class="text-center">Ceasar Cipher</h1>
+{% endblock header %}
+
+{% block desc %}
+    <p class="justify">
+        The Caesar cipher is one of the simplest and most well-known encryption techniques. It’s a type of substitution cipher where each letter in the plaintext is shifted a certain number of places down or up the alphabet.
+    </p>
+    <p class="justify">
+        It is named after Julius Caesar, who reportedly used it to protect his military communications. The Caesar cipher operates with a fixed shift value, meaning the same shift is applied to every letter in the message. While it’s easy to understand and implement, it’s also quite easy to break, making it more of a learning tool than a secure encryption method in modern times.
+    </p>
+{% endblock desc %}
+
+{% block input %}
+    {% include "components/inputTextBox.html" %}
+{% endblock input %}
+
+{% block keys %}
+    <div class="row align-items-center">
+        <div class="col-lg-3">
+            <label for="shift">Shift Number:</label>
+        </div>
+        <div class="col">
+            <input name="shift" class="key-field form-control" type="text" autocapitalize="on" />
+            <div id="error-shift" class="invalid-feedback">Input is not a valid integer.</div>
+        </div>
+    </div>
+{% endblock keys %}
+
+{% block buttons %}
+    {% include "components/copyBtn.html" %}
+    {% include "components/cipherBtn.html" %}
+{% endblock buttons %}
+
+{% block output %}
+    {% include "components/outputTextBox.html" %}
+{% endblock output %}

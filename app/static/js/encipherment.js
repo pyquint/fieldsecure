@@ -1,3 +1,7 @@
+$(function () {
+    $("[name=output-field]").val("");
+});
+
 function encipher(endpoint, payload) {
     $.ajax({
         type: "GET",
@@ -52,8 +56,6 @@ function resetCiphersPageState() {
 
 // HILL CIPHER
 $(function () {
-    $("[name=output-field]").val("");
-
     $("#hill-cipher .cipher-btn").on({
         click: function () {
             resetCiphersPageState();
@@ -71,8 +73,6 @@ $(function () {
 
 // ATBASH
 $(function () {
-    $("[name=output-field]").val("");
-
     $("#atbash-cipher .cipher-btn").on({
         click: function () {
             resetCiphersPageState();
@@ -85,9 +85,41 @@ $(function () {
     });
 });
 
+// CAESAR
+$(function () {
+    $("#caesar-cipher .cipher-btn").on({
+        click: function () {
+            resetCiphersPageState();
+
+            const message = $("[name=message-field]").val();
+            const shift = $("[name=shift]").val();
+
+            const payload = { message, shift };
+            encipher("caesar-cipher", payload);
+        }
+    });
+});
+
+// VIGENERE
+$(function () {
+    $("#vigenere-cipher .cipher-btn").on({
+        click: function () {
+            resetCiphersPageState();
+
+            const cipherBtn = $(this);
+            const message = $("[name=message-field]").val();
+            const key = $("[name=key]").val();
+            const mode = cipherBtn.data("mode");
+
+            const payload = { message, key, mode };
+            encipher("vigenere-cipher", payload);
+        }
+    });
+});
+
 // RSA
 $(async function () {
-    let keys = await generateKeys();
+    let keys;
 
     function clearPrimeFields() {
         $("[name=p]").val("");

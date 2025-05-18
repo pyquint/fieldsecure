@@ -1,0 +1,43 @@
+{% extends "ciphers/_ciphers_template.html" %}
+
+{% block title %}
+    Vigenère Cipher
+{% endblock title %}
+
+{% block header %}
+    <h1 class="text-center">Ceasar Cipher</h1>
+{% endblock header %}
+
+{% block desc %}
+    <p class="justify">
+        The Vigenère Cipher is a method of encrypting alphabetic text by using a series of interwoven Caesar ciphers based on the letters of a keyword. It was first described in the 16th century and became widely known as a secure cipher for centuries.
+    </p>
+    <p class="justify">
+        Unlike the simple <a href="{{ url_for('ciphers.hill_cipher_view') }}">Caesar Cipher</a> , which shifts every letter by the same amount, the Vigenère Cipher uses a different shift for each letter, making it more resistant to frequency analysis. This cipher works by aligning a repeating keyword with the plaintext and shifting each letter based on the corresponding key letter. It's an excellent example of a polyalphabetic cipher and is often used in educational settings to demonstrate the basics of cryptography.
+    </p>
+{% endblock desc %}
+
+{% block input %}
+    {% include "components/inputTextBox.html" %}
+{% endblock input %}
+
+{% block keys %}
+    <div class="row align-items-center">
+        <div class="col-lg-3">
+            <label for="key">Key:</label>
+        </div>
+        <div class="col">
+            <input name="key" class="key-field form-control" type="text" autocapitalize="on" />
+            <div id="error-key" class="invalid-feedback">Input is not a valid integer.</div>
+        </div>
+    </div>
+{% endblock keys %}
+
+{% block buttons %}
+    {% include "components/copyBtn.html" %}
+    {% include "components/encryptDecryptBtn.html" %}
+{% endblock buttons %}
+
+{% block output %}
+    {% include "components/outputTextBox.html" %}
+{% endblock output %}

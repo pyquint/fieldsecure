@@ -1,12 +1,12 @@
 import math
 from collections.abc import Iterable
-from string import ascii_lowercase
+from string import ascii_lowercase, ascii_uppercase
 from typing import Tuple
 
 import numpy as np
 import sympy as sp
 
-from app.types import ColumnVector, Matrix, Vector
+from app.types import ColumnVector, Vector
 
 
 def is_square(n: int) -> bool:
@@ -183,3 +183,13 @@ def generate_unique_primes(
             return primes
     else:
         raise Exception("Not enough primes within range.")
+
+
+
+def shift_right(message: str, shift: int):
+    for c in message:
+        if c.isalpha():
+            alphabet = ascii_lowercase if c.islower() else ascii_uppercase
+            yield alphabet[(alpha_id(c) + shift) % 26]
+        else:
+            yield c

@@ -9,19 +9,43 @@
         #logo {
             width: 200px;
         }
+
+        .col a {
+            margin: 0.5rem;
+            width: 14rem;
+        }
     </style>
 
-    <div class="px-4 py-5 my-5 text-center">
+    <div class="px-4 mt-4 text-center">
         <img src="{{ url_for('static', filename='img/encrypted.png') }}"
              alt="logo"
              class="d-block mx-auto mb-4"
              id="logo" />
         <h1 class="display-5 fw-bold text-body-emphasis">FieldSecure</h1>
+        <p>Learn, encrypt, and secure your messages with powerful cryptographic techniques.</p>
+    </div>
 
-        <div class="mt-5">
-            <a class="btn btn-warning text-white" href="{{ url_for('ciphers.rsa_view') }}">RSA</a>
-            <a class="btn btn-warning text-white" href="{{ url_for('ciphers.hill_cipher_view') }}">Hill Cipher</a>
-            <a class="btn btn-warning text-white" href="{{ url_for('ciphers.atbash_cipher_view') }}">Atbash Cipher</a>
+    <div class="container mt-4 text-center">
+        <hr />
+
+        <div class="row">
+            <div class="col border border-2 rounded p-4 m-2">
+                <h2>Simple</h2>
+                <hr />
+                <a class="btn btn-warning text-white" href="{{ url_for('ciphers.caesar_cipher_view') }}">Caesar Cipher</a>
+                <a class="btn btn-warning text-white" href="{{ url_for('ciphers.atbash_cipher_view') }}">Atbash Cipher</a>
+            </div>
+            <div class="col border border-2 rounded p-4 m-2">
+                <h2>Intermediate</h2>
+                <hr />
+                <a class="btn btn-warning text-white" href="{{ url_for('ciphers.vigenere_cipher_view') }}">Vigenère Cipher</a>
+                <a class="btn btn-warning text-white" href="{{ url_for('ciphers.hill_cipher_view') }}">Hill Cipher</a>
+            </div>
+            <div class="col border border-2 rounded p-4 m-2">
+                <h2>Advanced</h2>
+                <hr />
+                <a class="btn btn-warning text-white" href="{{ url_for('ciphers.rsa_view') }}">RSA</a>
+            </div>
         </div>
     </div>
 {% endblock content %}

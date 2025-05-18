@@ -36,7 +36,6 @@ def rsa_cipher():
     print(f"{mode=}\n")
 
     message_to_ascii_code = [ord(c) for c in message]
-    # message_to_ascii_code_str = "".join(ord(c) for c in message_to_ascii_code)
     print(f"{message_to_ascii_code=}")
 
     if mode == "encrypt":
