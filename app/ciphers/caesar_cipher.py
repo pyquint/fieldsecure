@@ -14,7 +14,7 @@ def caesar_cipher_view():
 
 
 @bp.route("/caesar-cipher/cipher", methods=["GET"])
-def caesar_cipher() -> Response:
+def caesar_cipher() -> tuple[Response, int] | str:
     message: str = request.args.get("message")
     shift: int = request.args.get("shift", type=int)
 

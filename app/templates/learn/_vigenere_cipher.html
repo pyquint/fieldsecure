@@ -11,7 +11,7 @@
 
 <h3>Step 2:</h3>
 <p>
-    Repeat the yey to match Length. The plaintext has {{ message | length }} letters, so repeat the key "{{ original_key }}" (7 letters) until it fits.
+    Repeat the yey to match Length. The plaintext has {{ message | length }} letters, so repeat the key "{{ original_key }}" ({{ original_key | length }} letters) until it fits.
 </p>
 <div class="step">$${{ key }}$$</div>
 

@@ -1,7 +1,7 @@
 from string import ascii_lowercase, ascii_uppercase
 from typing import Generator
 
-from flask import Response, render_template, request
+from flask import render_template, request
 
 from app.ciphers import bp
 from app.mathutils import alpha_id
@@ -15,7 +15,7 @@ def atbash_cipher_view():
 
 
 @bp.route("/atbash-cipher/cipher", methods=["GET"])
-def atbash_cipher() -> Response:
+def atbash_cipher() -> str:
     message: str = request.args.get("message")
     print(f"\n{message=}\n")
 

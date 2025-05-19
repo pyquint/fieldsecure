@@ -15,7 +15,7 @@ def hill_cipher_view():
 
 
 @bp.route("/hill-cipher/cipher", methods=["GET"])
-def hill_cipher() -> Response:
+def hill_cipher() -> tuple[Response, int] | str:
     message: str = request.args.get("message", "").strip().upper()
     key: str = request.args.get("key", "").strip().upper()
     keysize: int = request.args.get("keysize", type=int)

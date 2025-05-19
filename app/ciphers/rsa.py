@@ -13,7 +13,7 @@ def rsa_view():
 
 
 @bp.route("/rsa/cipher", methods=["GET"])
-def rsa_cipher():
+def rsa_cipher() -> str:
     message: str = request.args.get("message", "").strip()
     keys: dict = json.loads(request.args.get("keys"))
     mode: str = request.args.get("mode", "encrypt").strip().lower()
@@ -77,9 +77,9 @@ def rsa_cipher():
 
 @bp.route("/rsa/generate_keys", methods=["GET"])
 def rsa_generate_keys():
-    p: str | None = request.args.get("p")
-    q: str | None = request.args.get("q")
-    e: str | None = request.args.get("e")
+    p: str | int | None = request.args.get("p")
+    q: str | int | None = request.args.get("q")
+    e: str | int | None = request.args.get("e")
 
     print(f"{p=}, {q=}, {e=}\n")
 
@@ -105,7 +105,7 @@ def rsa_generate_keys():
     if e:
         try:
             public_key, private_key = generate_keys(p, q, int(e))
-        except ValueError as e:
+        except ValueError:
             errors["e"] = {"NonCoprime": "$e$ must be coprime to $\\phi(n)$"}
             return errors, 400
     else:

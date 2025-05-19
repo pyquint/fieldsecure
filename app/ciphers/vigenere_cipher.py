@@ -1,11 +1,9 @@
-import re
 from math import ceil
-from string import ascii_uppercase
 
 from flask import Response, jsonify, render_template, request
 
 from app.ciphers import bp
-from app.mathutils import alpha_id, id_alpha, shift_right
+from app.mathutils import alpha_id, id_alpha
 
 
 @bp.route("/vigenere-cipher", methods=["GET"])
@@ -16,7 +14,7 @@ def vigenere_cipher_view():
 
 
 @bp.route("/vigenere-cipher/cipher", methods=["GET"])
-def vigenere_cipher() -> Response:
+def vigenere_cipher() -> tuple[Response, int] | str:
     message: str = request.args.get("message")
     original_key: str = request.args.get("key")
     mode: str = request.args.get("mode")

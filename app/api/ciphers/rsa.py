@@ -52,8 +52,6 @@ def rsa_generate_keys():
     q: str | None = request.args.get("q")
     e: str | None = request.args.get("e")
 
-    print(f"{p=}, {q=}, {e=}\n")
-
     errors: dict = {}
 
     for key, val in request.args.items():
@@ -72,7 +70,7 @@ def rsa_generate_keys():
     if e:
         try:
             public_key, private_key = generate_keys(p, q, int(e))
-        except ValueError as e:
+        except ValueError:
             errors["e"] = {"NonCoprime": "$e$ must be coprime to $\\phi(n)$"}
             return errors, 400
     else:
