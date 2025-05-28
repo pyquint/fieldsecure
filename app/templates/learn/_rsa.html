@@ -63,7 +63,7 @@
     $$
 </div>
 
-<h2>Encipher</h2>
+<h2>Encryption</h2>
 
 <h3>Step 1:</h3>
 <p>Convert the plaintext into an array of positive integers using ASCII or Unicode.</p>
@@ -105,5 +105,28 @@
 <h3>Step 4:</h3>
 <p>Combine the characters.</p>
 <div class="step">{{ output }}</div>
+
+<h2>Decryption</h2>
+
+<h3>Step 1:</h3>
+<p>Recover the values using the formula $M \equiv C^{d} \mod{n}$.</p>
+<div class="step">
+    {% for c, m in zip(encrypted_ascii_codes, message_to_ascii_code) %}
+        $$ {{ c }}^{ {{ d }} } \pmod{ {{ n }} } \equiv  {{ m }} $$
+    {% endfor %}
+</div>
+
+<h3>Step 3:</h3>
+<p>Mapping the values into ASCII or Unicode.</p>
+<div class="step">
+    {% for ascii, c in zip(message_to_ascii_code, message) %}
+        $ {{ ascii }} \rightarrow  \text{ {{ c | tex_escape }} }$
+        <br />
+    {% endfor %}
+</div>
+
+<h3>Step 2:</h3>
+<p>Combine the characters to retrieve the original plaintext.</p>
+<div class="step">$${{ message | tex_escape }}$$</div>
 
 {% include "learn/__output_data.html" %}

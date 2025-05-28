@@ -3,7 +3,7 @@ from math import ceil
 from flask import Response, jsonify, render_template, request
 
 from app.ciphers import bp
-from app.mathutils import alpha_id, id_alpha
+from app.mathutils import alpha_id, id_alpha_upper
 
 
 @bp.route("/vigenere-cipher", methods=["GET"])
@@ -45,7 +45,7 @@ def vigenere_cipher() -> tuple[Response, int] | str:
 
     print(f"{sum_plaintext_key=}\n")
 
-    output = "".join(id_alpha(c) for c in sum_plaintext_key)
+    output = "".join(id_alpha_upper(c) for c in sum_plaintext_key)
     print(f"{output=}\n")
 
     response = dict(

@@ -3,7 +3,7 @@ from string import ascii_uppercase
 from flask import Response, jsonify, render_template, request
 
 from app.ciphers import bp
-from app.mathutils import shift_right
+from app.mathutils import shift_string
 
 
 @bp.route("/caesar-cipher", methods=["GET"])
@@ -24,9 +24,9 @@ def caesar_cipher() -> tuple[Response, int] | str:
     print(f"\n{message=}\n")
     print(f"{shift=}\n")
 
-    shifted_alphabet = shift_right(ascii_uppercase, shift)
+    shifted_alphabet = shift_string(ascii_uppercase, shift)
 
-    output = "".join(shift_right(message, shift))
+    output = "".join(_caesar_cipher(message, shift))
     print(f"{output=}\n")
 
     response = dict(
@@ -35,3 +35,13 @@ def caesar_cipher() -> tuple[Response, int] | str:
     print(f"{response=}\n")
 
     return render_template("learn/_caesar_cipher.html", **response)
+
+
+def _caesar_cipher(message, n):
+    for c in message:
+        if c.isalpha():
+            start = ord("a") if c.islower() else ord("A")
+            shifted_char = chr(start + (ord(c) - start + n) % 26)
+            yield shifted_char
+        else:
+            yield c

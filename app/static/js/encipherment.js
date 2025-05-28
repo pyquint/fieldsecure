@@ -119,7 +119,11 @@ $(function () {
 
 // RSA
 $(async function () {
-    let keys;
+    const p = $("[name=p]").val();
+    const q = $("[name=q]").val();
+    const e = $("[name=e]").val();
+
+    let keys = await generateKeys(p, q, e);
 
     function clearPrimeFields() {
         $("[name=p]").val("");
@@ -129,7 +133,7 @@ $(async function () {
 
     function generateKeys(p = null, q = null, e = null) {
         resetCiphersPageState();
-        clearPrimeFields();
+        // clearPrimeFields();
 
         return $.ajax({
             url: "rsa/generate_keys",
@@ -143,7 +147,11 @@ $(async function () {
 
     $("#rsa-generate-keys-btn").on({
         click: async function () {
-            keys = await generateKeys();
+            const p = $("[name=p]").val();
+            const q = $("[name=q]").val();
+            const e = $("[name=e]").val();
+
+            keys = await generateKeys(p, q, e);
 
             // (n, e), (n, d)
             $("#p").val(keys.p);

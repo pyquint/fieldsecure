@@ -13,7 +13,7 @@
         The Vigenère Cipher is a method of encrypting alphabetic text by using a series of interwoven Caesar ciphers based on the letters of a keyword. It was first described in the 16th century and became widely known as a secure cipher for centuries.
     </p>
     <p class="justify">
-        Unlike the simple <a href="{{ url_for('ciphers.hill_cipher_view') }}">Caesar Cipher</a> , which shifts every letter by the same amount, the Vigenère Cipher uses a different shift for each letter, making it more resistant to frequency analysis. This cipher works by aligning a repeating keyword with the plaintext and shifting each letter based on the corresponding key letter. It's an excellent example of a polyalphabetic cipher and is often used in educational settings to demonstrate the basics of cryptography.
+        Unlike the simple <a href="{{ url_for('ciphers.caesar_cipher_view') }}">Caesar Cipher</a> , which shifts every letter by the same amount, the Vigenère Cipher uses a different shift for each letter, making it more resistant to frequency analysis. This cipher works by aligning a repeating keyword with the plaintext and shifting each letter based on the corresponding key letter. It's an excellent example of a polyalphabetic cipher and is often used in educational settings to demonstrate the basics of cryptography.
     </p>
 {% endblock desc %}
 

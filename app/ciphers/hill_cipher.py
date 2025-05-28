@@ -16,8 +16,8 @@ def hill_cipher_view():
 
 @bp.route("/hill-cipher/cipher", methods=["GET"])
 def hill_cipher() -> tuple[Response, int] | str:
-    message: str = request.args.get("message", "").strip().upper()
-    key: str = request.args.get("key", "").strip().upper()
+    original_message: str = request.args.get("message", "").strip()
+    key: str = request.args.get("key", "").strip()
     keysize: int = request.args.get("keysize", type=int)
     mode: str = request.args.get("mode", "").strip().lower()
 
@@ -31,12 +31,11 @@ def hill_cipher() -> tuple[Response, int] | str:
 
     keysize: int = len(key)
 
-    # remove special characters
-    # message = re.sub(r"[^a-zA-Z0-9 \n.]", "", message)
-    # print(f"only letters: {message=}")
+    message = mu.filter_alpha(original_message)
+    chunk_size = isqrt(keysize)
 
     # split message into k-length chunks
-    msg_chunks: list[str] = mu.split_to_chunks(message, isqrt(keysize))
+    msg_chunks: list[str] = mu.split_to_chunks(message, chunk_size)
     message = "".join(msg_chunks)
 
     print(f"\n{message=}")
@@ -67,29 +66,36 @@ def hill_cipher() -> tuple[Response, int] | str:
     key_matrix: Matrix[np.int_] = mu.square_matrix_from_str(key)
     print(f"{key_matrix=}")
 
-    if mode == "decrypt":
-        # use the inverse to decrypt
-        det = mu.det(key_matrix) % 26
-        print(f"{det=}")
-
-        modinv = sp.mod_inverse(det, 26)
-        print(f"{modinv=}")
-
-        adjugate: sp.Matrix = (
-            sp.Matrix(key_matrix).adjugate().applyfunc(lambda x: (x + 26) % 26)
-        )
-        print(f"{adjugate=}")
-
-        key_matrix = modinv * adjugate % 26
-        print(f"inverse_key_matrix={key_matrix}")
-
-    elif not mu.is_invertible(key_matrix):
+    if not mu.is_invertible(key_matrix):
         # example non-invertible matrix: np.array([[9, 6], [12, 8]])
         return jsonify({"key": "Key matrix is not invertible."}), 400
 
-    dot_products: list[ColumnVector[np.int_]] = [
-        np.dot(key_matrix, vectors) for vectors in msg_chunk_num_vectors
-    ]
+    # decryption vars
+    # use the inverse to decrypt
+    det = mu.det(key_matrix) % 26
+    print(f"{det=}")
+
+    modinv = sp.mod_inverse(det, 26)
+    print(f"{modinv=}")
+
+    adjugate: sp.Matrix = (
+        sp.Matrix(key_matrix).adjugate().applyfunc(lambda x: (x + 26) % 26)
+    )
+    print(f"{adjugate=}")
+
+    inv_key_matrix = modinv * adjugate % 26
+    print(f"{inv_key_matrix=}")
+    # end decryption vars
+
+    if mode == "encrypt":
+        dot_products: list[ColumnVector[np.int_]] = [
+            np.dot(key_matrix, vectors) for vectors in msg_chunk_num_vectors
+        ]
+    else:
+        dot_products: list[ColumnVector[np.int_]] = [
+            np.dot(inv_key_matrix, vectors) for vectors in msg_chunk_num_vectors
+        ]
+
     print(f"{dot_products=}")
 
     products_modulos: list[ColumnVector[np.int_]] = [
@@ -97,17 +103,40 @@ def hill_cipher() -> tuple[Response, int] | str:
     ]
     print(f"{products_modulos=}")
 
-    output_chunks = [mu.str_from_ndarray(vector) for vector in products_modulos]
-    print(f"{output_chunks=}")
+    output_chunks_int_flat = [
+        i for vector in products_modulos for i in mu.lst_from_ndarray(vector)
+    ]
+    print(f"{output_chunks_int_flat=}")
 
-    output_chunk_char_vectors = [mu.column_vector(chunk) for chunk in output_chunks]
+    output_chunks_int_vectors = [
+        mu.column_vector(chunk)
+        for chunk in mu.split_to_chunks(output_chunks_int_flat, chunk_size)
+    ]
+    print(f"{output_chunks_int_vectors=}")
 
-    output = "".join(output_chunks)
+    output_char_list = [
+        mu.id_alpha_lower(id) if message[i].islower() else mu.id_alpha_upper(id)
+        for i, id in enumerate(output_chunks_int_flat)
+    ]
+    print(f"{output_char_list=}")
+
+    output_chunk_char_vectors = [
+        mu.column_vector(chunk)
+        for chunk in mu.split_to_chunks(output_char_list, chunk_size)
+    ]
+    print(f"{output_chunk_char_vectors=}")
+
+    output = "".join(output_char_list)
     print(f"{output=}\n")
 
     response = {
-        "parameters": {"message": message, "key": key, "k": keysize},
+        "mode": mode,
+        "original_message": original_message,
+        "message": message,
+        "key": key,
+        "k": keysize,
         "key_matrix": mu.np_to_latex(key_matrix),
+        "inv_key_matrix": mu.np_to_latex(inv_key_matrix),
         "message_chunks": msg_chunks,
         "message_chunk_vectors": [
             mu.np_to_latex(vector) for vector in msg_chunk_char_vectors
@@ -119,10 +148,13 @@ def hill_cipher() -> tuple[Response, int] | str:
             mu.np_to_latex(dot_product) for dot_product in dot_products
         ],
         "product_modulos": [mu.np_to_latex(modulo) for modulo in products_modulos],
+        "output_chunk_int_vectors": [
+            mu.np_to_latex(vector) for vector in output_chunk_char_vectors
+        ],
         "output_chunk_char_vectors": [
             mu.np_to_latex(vector) for vector in output_chunk_char_vectors
         ],
-        "output_char_chunks": output_chunks,
+        "output_char_list": output_char_list,
         "output": output,
     }
 

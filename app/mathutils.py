@@ -1,10 +1,11 @@
 import math
 from collections.abc import Iterable
-from string import ascii_lowercase, ascii_uppercase
+from string import ascii_lowercase
 from typing import Tuple
 
 import numpy as np
 import sympy as sp
+from itsdangerous import exc
 
 from app.types import ColumnVector, Vector
 
@@ -26,11 +27,18 @@ def alpha_id(c: str) -> int:
     return ascii_lowercase.index(c.lower())
 
 
-def id_alpha(i: int) -> str:
+def id_alpha_upper(i: int) -> str:
     """
-    Returns the character in the alphabet at index i.
+    Returns the lowercase character in the alphabet at index i.
     """
     return chr((i % 26) + 65)
+
+
+def id_alpha_lower(i: int) -> str:
+    """
+    Returns the lowercase character in the alphabet at index i.
+    """
+    return chr((i % 26) + 97)
 
 
 def square_matrix_from_str(string: str) -> np.ndarray[np.int_]:
@@ -59,8 +67,12 @@ def row_vector(lst: Iterable) -> Vector:
     return np.array([e for e in lst])
 
 
+def lst_from_ndarray(array: np.ndarray):
+    return array.flatten()
+
+
 def str_from_ndarray(array: np.ndarray) -> str:
-    return "".join("".join(id_alpha(i) for i in row) for row in array)
+    return "".join("".join(id_alpha_upper(i) for i in row) for row in array)
 
 
 def np_to_latex(matrix: np.ndarray, environment="pmatrix", formatter=str) -> str:
@@ -88,11 +100,16 @@ def inversible_key(k):
     pass
 
 
-def is_invertible(sq_matrix: np.ndarray) -> bool:
+def is_invertible(matrix: np.ndarray) -> bool:
     try:
-        np.linalg.inv(sq_matrix)
+        np.linalg.inv(matrix)
+        sp.mod_inverse(det(matrix), 26)
         return True
-    except np.linalg.LinAlgError:
+    except np.linalg.LinAlgError as e:
+        print("Error:", e)
+        return False
+    except ValueError as e:
+        print("Error:", e)
         return False
 
 
@@ -185,11 +202,27 @@ def generate_unique_primes(
         raise Exception("Not enough primes within range.")
 
 
+def shift_string(s: str, n: int):
+    """Shift the characters in the string.
 
-def shift_right(message: str, shift: int):
-    for c in message:
-        if c.isalpha():
-            alphabet = ascii_lowercase if c.islower() else ascii_uppercase
-            yield alphabet[(alpha_id(c) + shift) % 26]
-        else:
-            yield c
+    Args:
+        s (str): The string to be shifted.
+        n (int): Amount of shift. Positive shifts to right, negative to the left.
+
+    Returns:
+        str: Shifted message.
+    """
+    n = n % len(s)
+    return s[-n:] + s[:-n]
+
+
+def filter_alpha(s: str) -> str:
+    """Removes non-alphabet characters from string `s`.
+
+    Args:
+        s (str): The string to be filtered.
+
+    Returns:
+        str: String `s` but letters only.
+    """
+    return "".join(c for c in s if c.isalpha())

@@ -31,7 +31,12 @@
 <h3>Step 4:</h3>
 <p>Add the plaintext and key $\mod 26$.</p>
 <p>$C_{i} = (P_{i} + K_{i}) \pmod{26}$</p>
-<div class="step">$${{ key }}$$</div>
+<div class="step">
+    {% for p, k in zip(message_to_int, key_to_int) %}
+        {% set i = loop.index - 1 %}
+        $$C_{ {{ i }} } = {{ p }} + {{ k }} = {{ p + k }} = {{ output[i] }}$$
+    {% endfor %}
+</div>
 
 <h3>Step 5:</h3>
 <p>Combine the letters to retrieve the ciphertext.</p>
